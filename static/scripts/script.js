@@ -10,6 +10,8 @@ else{
     const profile = await fetchProfile(accessToken);
     console.log(profile);
     populateUI(profile);
+    const topTracks = await fetchTopTracks(accessToken);
+    sendDataToServer(topTracks);
 }
 
 export async function redirectToAuthCodeFlow(clientId){
@@ -68,12 +70,36 @@ export async function getAccessToken(clientId, code) {
     return access_token;
 }
 
+async function fetchTopTracks(token) {
+    const response = await fetch("https://api.spotify.com/v1/me/top/tracks?limit=10", {
+        method: "GET",
+        headers: { Authorization: `Bearer ${token}` }
+    });
+    return await response.json();
+}
+
 async function fetchProfile(token) {
     const result = await fetch("https://api.spotify.com/v1/me", {
         method: "GET", headers: { Authorization: `Bearer ${token}` }
     });
 
     return await result.json();
+}
+
+async function sendDataToServer(data) {
+    const response = await fetch("http://127.0.0.1:8000/api/receive_tracks/", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(data)
+    });
+
+    if (response.ok) {
+        console.log("Data successfully sent to the server.");
+    } else {
+        console.error("Failed to send data to the server.");
+    }
 }
 
 function populateUI(profile){
