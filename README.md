@@ -4,3 +4,6 @@
 2842259c@student.gla.ac.uk
 2875397c@student.gla.ac.uk
 2961164d@student.gla.ac.uk
+
+## External Sources 
+- Tailwind CSS
