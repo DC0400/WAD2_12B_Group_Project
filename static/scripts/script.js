@@ -2,15 +2,30 @@ const clientId = "b02c3e2779b04681a9be41e43258f5ef";
 const params = new URLSearchParams(window.location.search);
 const code = params.get("code");
 
-if(!code) {
-    redirectToAuthCodeFlow(clientId)
+let accessToken = localStorage.getItem("access_token");
+if (!accessToken) {
+    if (!code) {
+        redirectToAuthCodeFlow(clientId);
+    } else {
+        getAccessToken(clientId, code).then(token => {
+            if (token) {
+                localStorage.setItem("access_token", token);
+                loadData(token);
+            } else {
+                console.error("Failed to retrieve access token");
+            }
+        });
+    }
+} else {
+    loadData(accessToken);
 }
-else{
-    const accessToken = await getAccessToken(clientId, code);
-    const profile = await fetchProfile(accessToken);
+
+async function loadData(token) {
+    const profile = await fetchProfile(token);
     console.log(profile);
     populateUI(profile);
-    const topTracks = await fetchTopTracks(accessToken);
+
+    const topTracks = await fetchTopTracks(token);
     sendDataToServer(topTracks);
 }
 
@@ -66,8 +81,15 @@ export async function getAccessToken(clientId, code) {
         body: params
     });
 
-    const { access_token } = await result.json();
-    return access_token;
+    const data = await result.json();
+
+    if (data.access_token) {
+        localStorage.setItem("access_token", data.access_token); // Save token
+        return data.access_token;
+    } else {
+        console.error("Error getting access token:", data);
+        return null;
+    }
 }
 
 async function fetchTopTracks(token) {
@@ -75,7 +97,20 @@ async function fetchTopTracks(token) {
         method: "GET",
         headers: { Authorization: `Bearer ${token}` }
     });
-    return await response.json();
+
+    const data = await response.json();
+
+    if (!data.items) {
+        console.error("Error fetching top tracks:", data);
+        return null;
+    }
+
+    const totalListeningTimeMs = data.items.reduce((sum, track) => sum + track.duration_ms, 0);
+    const totalListeningMinutes = Math.round(totalListeningTimeMs / 60000);
+
+    console.log(`Total listening time: ${totalListeningMinutes} minutes`);
+
+    return { tracks: data.items, totalListeningMinutes };
 }
 
 async function fetchProfile(token) {
