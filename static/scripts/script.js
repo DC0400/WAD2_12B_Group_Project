@@ -93,7 +93,7 @@ export async function getAccessToken(clientId, code) {
 }
 
 async function fetchTopTracks(token) {
-    const response = await fetch("https://api.spotify.com/v1/me/top/tracks?time_range=medium_term&limit=10", {
+    const response = await fetch("https://api.spotify.com/v1/me/top/tracks?time_range=short_term&limit=10", {
         method: "GET",
         headers: { Authorization: `Bearer ${token}` }
     });
