@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <!--Include tailwind css-->
+        <script src="https://cdn.tailwindcss.com"></script>
+        <!--Include JQuery-->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+        <link rel="stylesheet" type="text/tailwindcss" href="style.css">
+
+        <script>
+            $(document).ready(function() {
+                $("html").addClass("bg-gradient-to-b from-green-800 h-full to-green-400");
+                $("body").addClass("bg-gradient-to-b from-green-800 h-full to-green-400");
+                $("nav").addClass("mx-auto bg-gray-800 flex w-full h-16 select-none");
+                $("#logo").addClass("px-4 text-green-500 font-semibold h-full flex items-center cursor-default");
+                $(".nav-item").addClass("px-4 text-green-50 font-semibold h-full cursor-pointer hover:bg-green-600 transition duration-300 flex items-center");
+            })
+        </script>
+
+        <title>Rankedify {% block title %}Rankedify{% endblock %}</title>
+    </head>
+    <body>
+        <nav>
+            <div id="logo">Rankedify</div>
+            <a href="/home"><div class="nav-item">Home</div></a>
+            <a href="/Friends"><div class="nav-item">Friends</div></a>
+            <a href="/Log-in"><div class="nav-item">Log in</div></a>
+        </nav>
+
+        <div id="page-body">
+            {% block main-body %}
+            {% endblock %}
+        </div>
+    </body>
+</html>
+</body>
+</html>
