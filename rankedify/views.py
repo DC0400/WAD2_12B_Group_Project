@@ -2,13 +2,12 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 from django.http import HttpResponse
-
-def index(request):
-    return render(request, 'rankedify/index.html')
-
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 import json
+
+def index(request):
+    return render(request, 'rankedify/index.html')
 
 @csrf_exempt
 def receive_tracks(request):

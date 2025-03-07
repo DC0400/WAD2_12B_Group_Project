@@ -24,7 +24,7 @@ export async function redirectToAuthCodeFlow(clientId){
     params.append("client_id", clientId);
     params.append("response_type", "code");
     params.append("redirect_uri", "http://127.0.0.1:8000/callback");
-    params.append("scope", "user-read-private user-read-email");
+    params.append("scope", "user-read-private user-read-email user-top-read");
     params.append("code_challenge_method", "S256");
     params.append("code_challenge", challenge);
 
@@ -71,7 +71,7 @@ export async function getAccessToken(clientId, code) {
 }
 
 async function fetchTopTracks(token) {
-    const response = await fetch("https://api.spotify.com/v1/me/top/tracks?limit=10", {
+    const response = await fetch("https://api.spotify.com/v1/me/top/tracks?time_range=medium_term&limit=10", {
         method: "GET",
         headers: { Authorization: `Bearer ${token}` }
     });
