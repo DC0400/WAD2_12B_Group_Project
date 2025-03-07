@@ -87,7 +87,7 @@ async function fetchProfile(token) {
 }
 
 async function sendDataToServer(data) {
-    const response = await fetch("http://127.0.0.1:8000/api/receive_tracks/", {
+    const response = await fetch("http://127.0.0.1:8000/rankedify/api/receive_tracks/", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
