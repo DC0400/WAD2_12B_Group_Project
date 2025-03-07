@@ -27,6 +27,7 @@ async function loadData(token) {
 
     const topTracks = await fetchTopTracks(token);
     sendDataToServer(topTracks);
+    populateSongs(topTracks.items)
 }
 
 export async function redirectToAuthCodeFlow(clientId){
@@ -104,18 +105,29 @@ async function fetchTopTracks(token) {
         console.error("Error fetching top tracks:", data);
         return null;
     }
+    
+    return data;
 
-    const totalListeningTimeMs = data.items.reduce((sum, track) => sum + track.duration_ms, 0);
-    const totalListeningMinutes = Math.round(totalListeningTimeMs / 60000);
-
-    console.log(`Total listening time: ${totalListeningMinutes} minutes`);
-
-    return { tracks: data.items, totalListeningMinutes };
+    // const totalListeningTimeMs = data.items.reduce((sum, track) => sum + track.duration_ms, 0);
+    // const totalListeningMinutes = Math.round(totalListeningTimeMs / 60000);
+    //
+    // console.log(`Total listening time: ${totalListeningMinutes} minutes`);
+    //
+    // return { tracks: data.items, totalListeningMinutes };
 }
 
 async function fetchProfile(token) {
     const result = await fetch("https://api.spotify.com/v1/me", {
         method: "GET", headers: { Authorization: `Bearer ${token}` }
+    });
+
+    return await result.json();
+}
+
+async function fetchMinutes(token){
+    const result = await fetch("https://api.spotify.com/v1/me/player/recently-played?limit=50&before=?" + new URLSearchParams(Date.now().toString()), {
+        method: "POST",
+        headers: { Authorization: `Bearer ${token}` }
     });
 
     return await result.json();
@@ -151,4 +163,18 @@ function populateUI(profile){
     document.getElementById("uri").setAttribute("href", profile.external_urls.spotify);
     document.getElementById("url").innerText = profile.href;
     document.getElementById("url").setAttribute("href", profile.href);
+}
+
+function populateSongs(top_songs){
+    const trackList = document.getElementById("track-list");
+    trackList.innerHTML = "";
+
+    top_songs.forEach(track => {
+        const trackElement = document.createElement("div");
+        trackElement.innerHTML = `
+            <img src="${track.album.images[0].url}" width="50"  alt="Album Art"/>
+            <strong>${track.name}</strong> - ${track.artists.map(artist => artist.name).join(", ")}
+        `;
+        trackList.appendChild(trackElement);
+    });
 }

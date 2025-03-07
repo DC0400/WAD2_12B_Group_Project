@@ -14,7 +14,7 @@ def receive_tracks(request):
     if request.method == "POST":
         try:
             data = json.loads(request.body)
-            print("Received Top Tracks:", data)
+            #print("Received Top Tracks:", data)
             return JsonResponse({"message": "Data received successfully"}, status=200)
         except json.JSONDecodeError:
             return JsonResponse({"error": "Invalid JSON"}, status=400)
