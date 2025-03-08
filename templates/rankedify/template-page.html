@@ -10,7 +10,7 @@
         <!--Include JQuery-->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
-        <!--Adds tailwind styling onto elements-->
+        <!--Links jquery script that applies styling to the appropiate elements-->
         <script src="{% static 'js/page_styling.js' %}"></script>
 
         <link rel="stylesheet" type="text/tailwindcss" href="style.css">
@@ -21,9 +21,10 @@
     <body>
         <nav>
             <div id="logo">Rankedify</div>
-            <a href="/home"><div class="nav-item">Home</div></a>
-            <a href="/Friends"><div class="nav-item">Friends</div></a>
-            <a href="/Log-in"><div class="nav-item">Log in</div></a>
+            <a href="/rankedify/home"><div class="nav-item">Home</div></a>
+            <a href="/rankedify/Friends"><div class="nav-item">Friends</div></a>
+            <a href="/rankedify/Log-in"><div class="nav-item">Log in</div></a>
+            <a href="/rankedify/profile"><div class="nav-item">Profile</div></a>
         </nav>
 
         <div id="page-body">
