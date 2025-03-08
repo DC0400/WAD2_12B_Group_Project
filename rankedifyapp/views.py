@@ -8,3 +8,6 @@ def default_page(request):
 
 def home(request):
     return HttpResponse("this is home")
+
+def signup(request):
+    return render(request, 'rankedify/signup.html')

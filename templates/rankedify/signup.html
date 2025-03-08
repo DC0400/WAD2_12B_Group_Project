@@ -1,0 +1,30 @@
+{% extends "rankedify/template-page.html" %}
+
+{% block title %} Friends {% endblock %}
+
+{% block main-body %}
+    <div class="login-and-create-account-form">
+        <form>
+            <div class="user-login">
+                <div class="input-container">
+                    <span class="input-title">Username:</span>
+                    <input class="text-field">
+                </div>
+                <div class="input-container">
+                    <span class="input-title">Email:</span>
+                    <input class="text-field">
+                </div>
+                <div class="input-container">
+                    <span class="input-title">Password:</span>
+                    <input class="text-field">
+                </div>
+                <div class="input-container">
+                    <span class="input-title">Confirm:</span>
+                    <input class="text-field">
+                </div>
+            </div>
+            <input class="button" type="submit" value="Create Account"/>
+        </form>
+        <a href="/Log-in" class="link">Already have an account?</a>
+    </div>
+{% endblock %}
