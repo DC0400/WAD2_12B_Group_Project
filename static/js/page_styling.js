@@ -10,9 +10,9 @@ $(document).ready(function() {
     $("#logo").addClass("px-4 text-green-500 font-semibold h-full flex items-center cursor-default");
     $(".nav-item").addClass("px-4 text-green-50 font-semibold h-full cursor-pointer hover:bg-green-600 transition duration-300 flex items-center");
     
-    //Log_in/ create_account Styling
-    $(".login-and-create-account-form").addClass("ps-40")
-    $(".input-title").addClass("input-title w-24 text-right")
-    $("input-container").addClass("flex space-x-2")
+    //Log_in.html/ signup.html Styling
+    $(".login-and-create-account-form").addClass("ps-40 pt-8")
+    $(".input-title").addClass("input-title w-24 text-right text-green-50 font-semibold")
+    $(".input-container").addClass("flex space-x-2")
     $(".text-field").addClass("w-64 border rounded px-2 py-1 mb-2")
 })
