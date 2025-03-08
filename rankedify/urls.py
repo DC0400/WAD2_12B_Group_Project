@@ -19,6 +19,7 @@ from django.urls import include
 from rankedifyapp import views
 
 urlpatterns = [
+    path('', views.default_page, name='default_page'),
     path('rankedify', include('rankedifyapp.urls')),
     path('admin/', admin.site.urls),
 ]
