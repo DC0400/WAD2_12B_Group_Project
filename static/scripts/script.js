@@ -28,6 +28,10 @@ async function loadData(token) {
     const topTracks = await fetchTopTracks(token);
     sendDataToServer(topTracks);
     populateSongs(topTracks.items)
+
+    const listeningMinutes = await fetchMinutes(token);
+    sendDataToServerMinutes(listeningMinutes);
+    calculateMinutes(listeningMinutes.items);
 }
 
 export async function redirectToAuthCodeFlow(clientId){
@@ -40,7 +44,7 @@ export async function redirectToAuthCodeFlow(clientId){
     params.append("client_id", clientId);
     params.append("response_type", "code");
     params.append("redirect_uri", "http://127.0.0.1:8000/callback");
-    params.append("scope", "user-read-private user-read-email user-top-read");
+    params.append("scope", "user-read-private user-read-email user-top-read user-read-recently-played");
     params.append("code_challenge_method", "S256");
     params.append("code_challenge", challenge);
 
@@ -125,16 +129,42 @@ async function fetchProfile(token) {
 }
 
 async function fetchMinutes(token){
-    const result = await fetch("https://api.spotify.com/v1/me/player/recently-played?limit=50&before=?" + new URLSearchParams(Date.now().toString()), {
-        method: "POST",
+    let url = new URL("https://api.spotify.com/v1/me/player/recently-played?limit=50")
+    url.searchParams.append('before', Date.now().toString());
+
+    const result = await fetch(url.toString(), {
+        method: "GET",
         headers: { Authorization: `Bearer ${token}` }
     });
 
-    return await result.json();
+    const minutes = await result.json();
+
+    if (!minutes.items) {
+        console.error("Error fetching top tracks:", minutes);
+        return null;
+    }
+
+    return minutes
 }
 
 async function sendDataToServer(data) {
     const response = await fetch("http://127.0.0.1:8000/rankedify/api/receive_tracks/", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(data)
+    });
+
+    if (response.ok) {
+        console.log("Data successfully sent to the server.");
+    } else {
+        console.error("Failed to send data to the server.");
+    }
+}
+
+async function sendDataToServerMinutes(data) {
+    const response = await fetch("http://127.0.0.1:8000/rankedify/api/receive_minutes/", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
@@ -177,4 +207,28 @@ function populateSongs(top_songs){
         `;
         trackList.appendChild(trackElement);
     });
+}
+
+function calculateMinutes(recentlyListened){
+    let totalMinutes = 0;
+
+    recentlyListened.forEach(items => {
+        totalMinutes += items.track.duration_ms;
+    })
+
+    //totalMinutes = totalMinutes / 60000;
+    totalMinutes = Math.round(totalMinutes / 60000);
+
+    // const elements = document.getElementById("listeningMinutes");
+    // elements.innerHTML = "";
+    //
+    // recentlyListened.forEach(items => {
+    //     const element = document.createElement("div");
+    //     element.innerHTML = `
+    //         <strong>${items.track.duration_ms}</strong><br>
+    //     `;
+    //     elements.appendChild(element)
+    // });
+
+    document.getElementById("listeningMinutes").innerHTML = totalMinutes.toString() + " Minutes";
 }

@@ -19,3 +19,14 @@ def receive_tracks(request):
         except json.JSONDecodeError:
             return JsonResponse({"error": "Invalid JSON"}, status=400)
     return JsonResponse({"error": "Invalid request"}, status=405)
+
+@csrf_exempt
+def receive_minutes(request):
+    if request.method == "POST":
+        try:
+            data = json.loads(request.body)
+            #print("Received Top Tracks:", data)
+            return JsonResponse({"message": "Data received successfully"}, status=200)
+        except json.JSONDecodeError:
+            return JsonResponse({"error": "Invalid JSON"}, status=400)
+    return JsonResponse({"error": "Invalid request"}, status=405)
