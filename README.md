@@ -13,4 +13,4 @@
 
 
 ## Software Requirements
-For running this project you should have a version of Python 3.11 and install the packages from the requirements.txt file using the ```bash pip install -r requirements.txt```
+For running this project you should have a version of Python 3.11 and install the packages from the requirements.txt file using the ```pip install -r requirements.txt``` command
