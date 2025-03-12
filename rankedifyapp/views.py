@@ -10,6 +10,7 @@ from django.contrib.auth.models import User
 from django.contrib import messages
 from .forms import ProfileForm
 from .models import Profile
+from django.shortcuts import redirect
 
 
 def index(request):
@@ -52,7 +53,7 @@ def edit_profile(request):
 
 
 
-def user_register(request):
+def signup(request):
     if request.method == "POST":
         username = request.POST.get('username')
         password = request.POST.get('password')
@@ -90,3 +91,9 @@ def user_logout(request):
     logout(request)
     return redirect('rankedify:home')
 
+def home(request):
+    return render(request, "rankedify/home.html")
+
+def default_page(request):
+    response = redirect("rankedify/home")
+    return response
