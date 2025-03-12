@@ -11,9 +11,9 @@ $(document).ready(function() {
     $(".nav-item").addClass("px-4 text-green-50 font-semibold h-full cursor-pointer hover:bg-green-600 transition duration-300 flex items-center");
     
     //home.html
-    $(".leaderboard-container").addClass("w-[500px] border mx-auto rounded bg-blue-500")
-    $(".leaderboard-categories").addClass("flex border-b")
-    $(".leaderboard-categories-option").addClass("cursor-pointer hover:bg-blue-700 w-1/3")
+    $(".leaderboard-container").addClass("w-[650px] border-[2px] border-zinc-950 mx-auto rounded bg-blue-500")
+    $(".leaderboard-categories").addClass("flex border-b-[2px] border-zinc-950")
+    $(".leaderboard-categories-option").addClass("cursor-pointer text-center w-1/3 hover:bg-blue-700")
     $(".leaderboard-search").addClass("border-b-[2px] border-zinc-950 pt-[2px] pb-[2px]")
     $(".leaderboard-search-box").addClass("rounded-lg w-32 pl-2 pr-2")
     $(".leaderboard-entry").addClass("flex space-x-4 h-full");
@@ -25,5 +25,5 @@ $(document).ready(function() {
     $(".login-and-create-account-form").addClass("ps-40 pt-8")
     $(".input-title").addClass("input-title w-24 text-right text-green-50 font-semibold")
     $(".input-container").addClass("flex space-x-8")
-    $(".text-field").addClass("w-64 border rounded px-2 py-1 mb-2")
+    $(".text-field").addClass("w-64 border-zinc-950 rounded px-2 py-1 mb-2")
 })
