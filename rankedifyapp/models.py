@@ -2,8 +2,9 @@ from django.db import models
 from django.template.defaultfilters import slugify
 from django.contrib.auth.models import User
 
+
 class UserProfile(models.Model):
-    spotify_username = models.CharField(max_length=100, unique=True)
+    spotify_username = models.CharField(max_length=100, unique=True, PrimaryKey=True)
     forename = models.CharField(max_length=50)
     surname = models.CharField(max_length=50)
     email = models.EmailField()
@@ -20,13 +21,14 @@ class UserProfile(models.Model):
         self.slug = slugify(self.spotify_username)
         super(UserProfile, self).save(*args, **kwargs)
 
-class Song(models.Model):
-    title = models.CharField(max_length=100)
-    length = models.CharField(max_length=200)
-    song_ID = models.CharField(max_length=100, unique=True)
+
+class Genre(models.Model):
+    name = models.CharField(max_length=100)
+    genre_ID = models.CharField(max_length=100, unique=True)
 
     def __str__(self):
-        return self.title
+        return self.name
+
 
 class Artist(models.Model):
     name = models.CharField(max_length=100)
@@ -35,9 +37,32 @@ class Artist(models.Model):
     def __str__(self):
         return self.name
 
-class Genre(models.Model):
-    name = models.CharField(max_length=100)
-    genre_ID = models.CharField(max_length=100, unique=True)
+
+class Song(models.Model):
+    title = models.CharField(max_length=100)
+    length = models.CharField(max_length=200)
+    song_ID = models.CharField(max_length=100, unique=True)
+    artist = models.ForeignKey(Artist, on_delete=models.CASCADE)
+    genre = models.ForeignKey(Genre, on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.name
+        return self.title
+
+
+class UsersTopSongs(models.Model):
+    user = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
+    song = models.ForeignKey(Song, on_delete=models.CASCADE)
+
+
+class Friends(models.Model):
+    user1 = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
+    user2 = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
+
+
+class FriendRequests(models.Model):
+    request_sender = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
+    request_receiver = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
+    status = models.CharField(max_length=50, default='Pending')
+
+    def __str__(self):
+        return self.status

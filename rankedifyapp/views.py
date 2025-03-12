@@ -9,11 +9,11 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from django.contrib import messages
 from .forms import ProfileForm
-from .models import Profile
+from .models import UserProfile
 
 
 def index(request):
-    leaderboard = Profile.objects.order_by("-total_minutes_listened")[:12] 
+    leaderboard = UserProfile.objects.order_by("-listening_minutes")[:12]
     return render(request, "rankedify/index.html", {"leaderboard": leaderboard})
 @csrf_exempt
 def receive_tracks(request):
