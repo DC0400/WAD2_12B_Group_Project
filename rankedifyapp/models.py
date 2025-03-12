@@ -2,7 +2,7 @@ from django.db import models
 from django.template.defaultfilters import slugify
 from django.contrib.auth.models import User
 
-class UserProfile(models.Model):
+class Profile(models.Model):
     spotify_username = models.CharField(max_length=100, unique=True)
     forename = models.CharField(max_length=50)
     surname = models.CharField(max_length=50)
@@ -18,7 +18,7 @@ class UserProfile(models.Model):
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.spotify_username)
-        super(UserProfile, self).save(*args, **kwargs)
+        super(Profile, self).save(*args, **kwargs)
 
 class Song(models.Model):
     title = models.CharField(max_length=100)
@@ -38,6 +38,8 @@ class Artist(models.Model):
 class Genre(models.Model):
     name = models.CharField(max_length=100)
     genre_ID = models.CharField(max_length=100, unique=True)
+
+
 
     def __str__(self):
         return self.name
