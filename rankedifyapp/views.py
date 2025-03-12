@@ -14,7 +14,7 @@ from django.shortcuts import redirect
 
 
 def index(request):
-    leaderboard = Profile.objects.order_by("-total_minutes_listened")[:12] 
+    leaderboard = Profile.objects.order_by("-listening_minutes")[:12]
     return render(request, "rankedify/index.html", {"leaderboard": leaderboard})
 @csrf_exempt
 def receive_tracks(request):
@@ -44,7 +44,7 @@ def edit_profile(request):
         form = ProfileForm(request.POST, request.FILES, instance=profile)
         if form.is_valid():
             form.save()
-            return redirect("rankedfiy/users/username")
+            return redirect("rankedify/users/username")
     else:
         form = ProfileForm(instance=profile)
 

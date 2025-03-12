@@ -3,7 +3,7 @@ from django.template.defaultfilters import slugify
 from django.contrib.auth.models import User
 
 
-class UserProfile(models.Model):
+class Profile(models.Model):
     spotify_username = models.CharField(max_length=100, unique=True, PrimaryKey=True)
     forename = models.CharField(max_length=50)
     surname = models.CharField(max_length=50)
@@ -19,7 +19,7 @@ class UserProfile(models.Model):
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.spotify_username)
-        super(UserProfile, self).save(*args, **kwargs)
+        super(Profile, self).save(*args, **kwargs)
 
 
 class Genre(models.Model):
@@ -50,18 +50,18 @@ class Song(models.Model):
 
 
 class UsersTopSongs(models.Model):
-    user = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
+    user = models.ForeignKey(Profile, on_delete=models.CASCADE)
     song = models.ForeignKey(Song, on_delete=models.CASCADE)
 
 
 class Friends(models.Model):
-    user1 = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
-    user2 = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
+    user1 = models.ForeignKey(Profile, on_delete=models.CASCADE)
+    user2 = models.ForeignKey(Profile, on_delete=models.CASCADE)
 
 
 class FriendRequests(models.Model):
-    request_sender = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
-    request_receiver = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
+    request_sender = models.ForeignKey(Profile, on_delete=models.CASCADE)
+    request_receiver = models.ForeignKey(Profile, on_delete=models.CASCADE)
     status = models.CharField(max_length=50, default='Pending')
 
     def __str__(self):
