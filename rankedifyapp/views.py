@@ -7,7 +7,7 @@ def default_page(request):
     return response
 
 def home(request):
-    return HttpResponse("this is home")
+    return render(request, 'rankedify/home.html')
 
 def signup(request):
     return render(request, 'rankedify/signup.html')

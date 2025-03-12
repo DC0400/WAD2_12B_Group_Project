@@ -1,0 +1,34 @@
+{% extends "rankedify/template-page.html" %}
+
+{% block title %} Home {% endblock %}
+
+{% block main-body %}
+<section class="leaderboard-container">
+
+    <div class="leaderboard-categories">
+        <div class="leaderboard-categories-option">
+            Test1
+        </div>
+        <div class="leaderboard-categories-option">
+            Test2
+        </div>
+        <div class="leaderboard-categories-option">
+            Test3
+        </div>
+    </div>
+
+    <div class="leaderboard-search">
+        Genre <input placeholder="search..." type="text" class="leaderboard-search-box" />
+    </div>
+
+    <div class="leaderboard">
+        <ul> 
+            <li class="leaderboard-entry">
+                <span class="leaderboard-position">#1</span> 
+                <span class="leaderboard-username">Username</span> 
+                <span class="leaderboard-listening-time">Listening Time</span>
+            </li>
+        </ul>
+    </div>
+</section>
+{% endblock %}

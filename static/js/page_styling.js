@@ -11,10 +11,15 @@ $(document).ready(function() {
     $(".nav-item").addClass("px-4 text-green-50 font-semibold h-full cursor-pointer hover:bg-green-600 transition duration-300 flex items-center");
     
     //home.html
-    $(".leaderboard").addClass("w-1/2 mx-auto bg-blue-500 rounded")
-    $(".leaderboard-position").addClass("w-1/6")
-    $(".leaderboard-username").addClass("w-1/2")
-    $(".leaderboard-listening-time").addClass("w-1/3")
+    $(".leaderboard-container").addClass("w-[500px] border mx-auto rounded bg-blue-500")
+    $(".leaderboard-categories").addClass("flex border-b")
+    $(".leaderboard-categories-option").addClass("cursor-pointer hover:bg-blue-700 w-1/3")
+    $(".leaderboard-search").addClass("border-b-[2px] border-zinc-950 pt-[2px] pb-[2px]")
+    $(".leaderboard-search-box").addClass("rounded-lg w-32 pl-2 pr-2")
+    $(".leaderboard-entry").addClass("flex space-x-4 h-full");
+    $(".leaderboard-position").addClass("w-1/6 flex-none")
+    $(".leaderboard-username").addClass("w-1/2 flex-1")
+    $(".leaderboard-listening-time").addClass("w-1/3 flex-1")
 
     //Log_in.html/ signup.html Styling
     $(".login-and-create-account-form").addClass("ps-40 pt-8")
