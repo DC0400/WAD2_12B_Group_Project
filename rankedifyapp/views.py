@@ -47,7 +47,7 @@ def edit_profile(request):
     else:
         form = ProfileForm(instance=profile)
 
-    return render(request, "rankedify/edit_profile.html", {"form": form})
+    return render(request, "rankedify/profile", {"form": form})
 
 
 
