@@ -8,6 +8,6 @@ app_name = 'rankedifyapp'
 urlpatterns = [
     path('/home', views.home, name='home'),
     path('/signup', views.signup, name='signup'),
-    path('/login', views.login, name='login'),
+    path('/login', views.user_login, name='login'),
     path('/friends', views.friends, name='friends')
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
