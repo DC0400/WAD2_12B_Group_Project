@@ -44,3 +44,16 @@ $(".leaderboard-categories-option").click(function() {
 
     $(this).addClass("bg-blue-700"); // Add the class to the clicked element
 });
+
+// friends.html lists
+// friends.html list of friends
+$(".friends-lists-option").click(function() {
+    let options = $(".friends-lists").children();
+
+    options.each(function() {
+        $(this).removeClass("bg-blue-700");
+    });
+
+    $(this).addClass("bg-blue-700");
+});
+// friends.html list of users

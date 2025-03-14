@@ -52,6 +52,8 @@ def edit_profile(request):
 
 
 
+def friends(request):
+    return render(request, "rankedify/friends.html")
 
 def signup(request):
     if request.method == "POST":
