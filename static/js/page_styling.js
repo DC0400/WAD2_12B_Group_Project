@@ -4,6 +4,7 @@ $(document).ready(function() {
     $("body").addClass("bg-gradient-to-b from-green-800 h-full to-green-400");
     $(".link").addClass("font-medium text-zinc-950 underline italic hover:no-underline")
     $(".button").addClass("bg-green-500 hover:bg-green-700 text-white font-bold py-1 px-1 rounded")
+    $("page-body")
 
     //nav bar
     $("nav").addClass("mx-auto bg-gray-800 flex w-full h-16 select-none");
@@ -34,6 +35,7 @@ $(document).ready(function() {
 })
 
 //home.html leaderboard category buttons handling 
+//doesn't work currently
 $(".leaderboard-categories-option").click(function() {
     let options = $(".leaderboard-categories").children();
 
