@@ -3,48 +3,54 @@
 {% block title %} Home {% endblock %}
 
 {% block main-body %}
-<section class="leaderboard-container">
+<div class="home-content-container flex h-full">
+    <section class="leaderboard-container">
+        <div class="leaderboard-categories">
+            <div class="leaderboard-categories-option rounded-tl">
+                Genre Leaderboard
+            </div>
+            <div class="leaderboard-categories-option border-zinc-950 border-l-[2px] border-r-[2px]">
+                Songs in Genre Leaderboard
+            </div>
+            <div class="leaderboard-categories-option rounded-tr">
+                Weekly Leaderboard
+            </div>
+        </div>
+        <div class="leaderboard-search">
+            Genre <input placeholder="search..." type="text" class="leaderboard-search-box" />
+        </div>
+        <div class="leaderboard">
+            <ul> 
+                <li class="leaderboard-entry leaderboard-entry-title">
+                    <span class="leaderboard-position">Place</span> 
+                    <span class="leaderboard-username">Username</span> 
+                    <span class="leaderboard-listening-time">Listening Time (minutes)</span>
+                </li>
+                <li class="leaderboard-entry">
+                    <span class="leaderboard-position">#1</span> 
+                    <span class="leaderboard-username">Example Name</span> 
+                    <span class="leaderboard-listening-time">3000</span>
+                </li>
+                <li class="leaderboard-entry">
+                    <span class="leaderboard-position">#2</span> 
+                    <span class="leaderboard-username">Example Name2</span> 
+                    <span class="leaderboard-listening-time">2000</span>
+                </li>
+                
+            </ul>
+                <li class="leaderboard-entry leaderboard-entry-user">
+                    <span class="leaderboard-position text-center"> <span class="text-center">You</span> <br> #543</span>
+                    <span class="leaderboard-username pt-[12px]">Example Name4</span> 
+                    <span class="leaderboard-listening-time pt-[12px]">2</span>
+                </li>
+        </div>
+    </section>
 
-    <div class="leaderboard-categories">
-        <div class="leaderboard-categories-option rounded-tl">
-            Genre Leaderboard
-        </div>
-        <div class="leaderboard-categories-option border-zinc-950 border-l-[2px] border-r-[2px]">
-            Songs in Genre Leaderboard
-        </div>
-        <div class="leaderboard-categories-option rounded-tr">
-            Weekly Leaderboard
-        </div>
+    <div class="border-l">
     </div>
 
-    <div class="leaderboard-search">
-        Genre <input placeholder="search..." type="text" class="leaderboard-search-box" />
-    </div>
+    <canvas class="max-w-[450px]" height="188" width="450">
 
-    <div class="leaderboard">
-        <ul> 
-            <li class="leaderboard-entry leaderboard-entry-title">
-                <span class="leaderboard-position">Place</span> 
-                <span class="leaderboard-username">Username</span> 
-                <span class="leaderboard-listening-time">Listening Time (minutes)</span>
-            </li>
-            <li class="leaderboard-entry">
-                <span class="leaderboard-position">#1</span> 
-                <span class="leaderboard-username">Example Name</span> 
-                <span class="leaderboard-listening-time">3000</span>
-            </li>
-            <li class="leaderboard-entry">
-                <span class="leaderboard-position">#2</span> 
-                <span class="leaderboard-username">Example Name2</span> 
-                <span class="leaderboard-listening-time">2000</span>
-            </li>
-
-            <li class="leaderboard-entry leaderboard-entry-user">
-                <span class="leaderboard-position text-center"> <span class="text-center">You</span> <br> #543</span>
-                <span class="leaderboard-username pt-[12px]">Example Name4</span> 
-                <span class="leaderboard-listening-time pt-[12px]">2</span>
-            </li>
-        </ul>
-    </div>
-</section>
+    </canvas>
+</div>
 {% endblock %}

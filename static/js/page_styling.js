@@ -12,7 +12,7 @@ $(document).ready(function() {
     
 
     //home.html
-    $(".leaderboard-container").addClass("w-[650px] border-[3px] border-zinc-900 mx-auto rounded bg-gray-900 mt-[5%] text-gray-300 font-semibold")
+    $(".leaderboard-container").addClass("w-[650px] max-h-[250px] border-[3px] border-zinc-900 mx-auto rounded bg-gray-900 mt-[5%] text-gray-300 font-semibold")
     $(".leaderboard-categories").addClass("flex border-b-[3px] border-zinc-950")
     $(".leaderboard-categories-option").addClass("select-none cursor-pointer text-center w-1/3 hover:bg-green-700")
     //home.html: searchbar
