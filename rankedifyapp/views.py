@@ -38,6 +38,10 @@ def receive_minutes(request):
             return JsonResponse({"error": "Invalid JSON"}, status=400)
     return JsonResponse({"error": "Invalid request"}, status=405)
 
+
+def profile(request):
+    return render(request, 'rankedify/profile.html')
+
 def edit_profile(request):
     profile = request.user.profile
     if request.method == "POST":
