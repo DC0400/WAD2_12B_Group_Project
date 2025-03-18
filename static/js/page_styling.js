@@ -29,6 +29,13 @@ $(document).ready(function() {
     //home.html/profile.html
     $(".page-splitter").addClass("flex h-full")
 
+    //profile.html
+    $(".profile-info-container").addClass("w-[500px] flex justify-between space-x-8")
+    $(".field-title").addClass("self-start")
+    $(".text-field").addClass("self-end")
+
+
+
     //friends.html
     $(".friends").addClass("h-[100px] overflow-auto")
     $(".friends-container").addClass("w-[650px] max-h-[250px] border-[3px] border-zinc-900 mx-auto rounded bg-gray-900 mt-[5%] text-gray-300 font-semibold")
@@ -37,7 +44,7 @@ $(document).ready(function() {
 
     //Log_in.html/ signup.html Styling
     $(".login-and-create-account-form").addClass("ps-40 pt-8")
-    $(".input-title").addClass("input-title w-24 text-right text-green-50 font-semibold")
+    $(".input-title").addClass("w-24 text-right text-green-50 font-semibold")
     $(".input-container").addClass("flex space-x-8")
     $(".text-field").addClass("w-64 border-zinc-950 rounded px-2 py-1 mb-2")
 })
