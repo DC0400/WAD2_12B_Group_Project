@@ -4,10 +4,10 @@ $(document).ready(function() {
     $("body").addClass("bg-gradient-to-b from-green-800 h-full to-green-400");
     $(".link").addClass("font-medium text-zinc-950 underline italic hover:no-underline")
     $(".button").addClass("bg-green-500 hover:bg-green-700 text-white font-bold py-1 px-1 rounded")
-    $("page-body")
+    $("#page-body").addClass("h-[91%]")
 
     //nav bar
-    $("nav").addClass("mx-auto bg-gray-800 flex w-full h-16 select-none");
+    $("nav").addClass("mx-auto bg-gray-800 flex w-full h-[9%] select-none");
     $("#logo").addClass("px-4 text-green-500 font-semibold h-full flex items-center cursor-default");
     $(".nav-item").addClass("px-4 text-green-50 font-semibold h-full cursor-pointer hover:bg-green-600 transition duration-300 flex items-center");
     
