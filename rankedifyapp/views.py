@@ -9,7 +9,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from django.contrib import messages
 from .forms import ProfileForm
-from .models import Profile
+from .models import LeaderboardEntry, Profile
 from django.shortcuts import redirect
 
 
@@ -98,7 +98,19 @@ def user_logout(request):
     return redirect('rankedify:home')
 
 def home(request):
-    return render(request, "rankedify/home.html")
+    #Home page view showing the leaderboard of users with most listened-to songs
+    leaderboard = LeaderboardEntry.objects.order_by('-listening_score')[:10]  # Get top 10 users
+
+    user_entry = None
+    if request.user.is_authenticated:
+        try:
+            user_entry = LeaderboardEntry.objects.get(user=request.user)  
+            all_entries = LeaderboardEntry.objects.order_by('-listening_score')
+            user_entry.rank = list(all_entries).index(user_entry) + 1  # Find user's rank
+        except LeaderboardEntry.DoesNotExist:
+            user_entry = None  # User is not in the leaderboard
+
+    return render(request, 'home.html', {'leaderboard': leaderboard, 'user_entry': user_entry})
 
 def default_page(request):
     response = redirect("rankedify/home")

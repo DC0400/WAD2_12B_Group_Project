@@ -45,3 +45,11 @@ class Genre(models.Model):
 
     def __str__(self):
         return self.name
+    
+#default for views
+class LeaderboardEntry(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    listening_score = models.IntegerField(default=0) #sync with spotify
+
+    def __str__(self):
+        return f"{self.user.username} - {self.listening_score} minutes"
