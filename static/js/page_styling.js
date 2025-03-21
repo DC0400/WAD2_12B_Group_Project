@@ -20,7 +20,7 @@ $(document).ready(function() {
     $(".leaderboard-search").addClass("border-b-[2px] pl-1 border-zinc-950 pt-[2px] pb-[2px]")
     $(".leaderboard-search-box").addClass("rounded-lg w-32 pl-2 pr-2")
     //home.html: entry
-    $(".leaderboard-entry").addClass("flex h-full border-b-[2px] [&_:is(span)]:pl-[3px] border-zinc-950");
+    $(".leaderboard-entry").addClass("flex h-full border-b-[2px] [&_:is(span)]:pl-[3px] border-zinc-950 relative");
     $(".leaderboard-entry-title").addClass("border-b-[3px]")
     $(".leaderboard-position").addClass("w-1/12 flex-none border-r-[3px] border-zinc-950")
     $(".leaderboard-username").addClass("w-1/2 flex-1 border-r-[3px] border-zinc-950")
@@ -29,12 +29,14 @@ $(document).ready(function() {
     //home.html/profile.html
     $(".page-splitter").addClass("flex h-full")
 
+    //error-page.html
+    $(".message-container").addClass("m-auto w-96")
+    $("h2").addClass("text-lg")
+
     //profile.html
     $(".profile-info-container").addClass("w-[500px] flex justify-between space-x-8")
     $(".field-title").addClass("self-start")
     $(".text-field").addClass("self-end")
-
-
 
     //friends.html
     $(".friends").addClass("h-[100px] overflow-auto")
@@ -62,5 +64,3 @@ $(".leaderboard-categories-option").click(function() {
 
     $(this).addClass("bg-blue-700"); // Add the class to the clicked element
 });
-
-// friends.html list of users

@@ -1,0 +1,10 @@
+{% extends "rankedify/template-page.html" %}
+
+{% block title %} Login-Error {% endblock %}
+
+{% block main-body %}
+    <div class="message-container">    
+        <h2 >Login Error</h2>
+        <p><b>Warning:</b> You must be logged in to view this page <a class="link" href="{% url 'rankedifyapp:home' %}"> Return Home</a> </p>
+    </div>
+{% endblock %}

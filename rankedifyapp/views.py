@@ -103,3 +103,6 @@ def home(request):
 def default_page(request):
     response = redirect("rankedify/home")
     return response
+
+def error_page(request):
+    return render(request, "rankedify/error-page.html")
