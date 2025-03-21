@@ -13,9 +13,6 @@ $(document).ready(function() {
     
 
     //home.html
-    $(".leaderboard-container").addClass("w-[650px] max-h-[250px] border-[3px] border-zinc-900 mx-auto rounded bg-gray-900 mt-[5%] text-gray-300 font-semibold")
-    $(".leaderboard-categories").addClass("flex border-b-[3px] border-zinc-950")
-    $(".leaderboard-categories-option").addClass("select-none cursor-pointer text-center w-1/3 hover:bg-green-700")
     //home.html: searchbar
     $(".leaderboard-search").addClass("border-b-[2px] pl-1 border-zinc-950 pt-[2px] pb-[2px]")
     $(".leaderboard-search-box").addClass("rounded-lg w-32 pl-2 pr-2")
@@ -51,16 +48,3 @@ $(document).ready(function() {
     $(".text-field").addClass("w-64 border-zinc-950 rounded px-2 py-1 mb-2")
 })
 
-//home.html leaderboard category buttons handling 
-//doesn't work currently
-$(".leaderboard-categories-option").click(function() {
-    let options = $(".leaderboard-categories").children();
-
-    console.log("this is running")
-    options.each(function() {
-        $(this).removeClass("bg-blue-700"); // Remove the class from all siblings
-    });
-
-
-    $(this).addClass("bg-blue-700"); // Add the class to the clicked element
-});
