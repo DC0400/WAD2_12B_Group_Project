@@ -8,7 +8,7 @@ import json
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from django.contrib import messages
-from .forms import ProfileForm
+from .forms import ProfileForm, UserProfileForm
 from .models import Profile
 from django.shortcuts import redirect
 
@@ -61,8 +61,10 @@ def friends(request):
 
 def signup(request):
     if request.method == "POST":
+
         username = request.POST.get('username')
         password = request.POST.get('password')
+        email = request.POST.get('email')
         confirm_password = request.POST.get('confirm_password')
         
         if password != confirm_password:
@@ -72,10 +74,14 @@ def signup(request):
         if User.objects.filter(username=username).exists():
             messages.error(request, "Username already taken")
             return render(request, "rankedify/signup.html")
+
+        if User.objects.filter(email=email).exists():
+            messages.error(request, "Email already used")
+            return render(request, "rankedify/signup.html")
         
-        user = User.objects.create_user(username=username, password=password)
+        user = User.objects.create_user(username=username, email=email, password=password)
         login(request, user)
-        return redirect('rankedify:home')
+        return redirect('rankedifyapp:home')
     else:
         return render(request, "rankedify/signup.html")
 

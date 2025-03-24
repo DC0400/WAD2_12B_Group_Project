@@ -5,7 +5,7 @@ from django.db import models
 class Profile(User):
     forename = models.CharField(max_length=100)
     surname = models.CharField(max_length=100)
-    photo = models.ImageField(upload_to='user_photos/', blank=True, null=True)
+    photo = models.ImageField(upload_to='user_photos/', blank=True)
     spotify_username = models.CharField(max_length=150, unique=True, blank=True, null=True)
     rank = models.IntegerField(default=0)
     top_song = models.CharField(max_length=100, null=True, blank=True)
