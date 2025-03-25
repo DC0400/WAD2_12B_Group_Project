@@ -3,7 +3,10 @@
 {% load staticfiles %}
 
 
-{% block title %} Profile {% endblock %}
+{% block title %}
+    Profile
+    <script src="{% static 'js/spotify_script.js' %}" type="module"></script>
+{% endblock %}
 
 {% block main-body %}
     <div class="page-splitter">
@@ -22,24 +25,33 @@
                     <input class="text-field">
                 </div>
                 <div class="profile-info-container">
-                    <span class="field-title">Favourite Album:</span>
+                    <span class="field-title">Spotify Username:
+                        <span id="displayname"></span>
+                    </span>
                     <input class="text-field">
                 </div>
-                <div class="profile-info-container">
-                    <span class="field-title">Favourite Artist:</span>
-                    <input class="text-field">
-                </div>
+<!--                <div class="profile-info-container">-->
+<!--                    <span class="field-title">Favourite Album:</span>-->
+<!--                    <input class="text-field">-->
+<!--                </div>-->
+<!--                <div class="profile-info-container">-->
+<!--                    <span class="field-title">Favourite Artist:</span>-->
+<!--                    <input class="text-field">-->
+<!--                </div>-->
                 <div class="profile-info-container">
                     <span class="field-title">Favourite Song:</span>
                     <input class="text-field">
                 </div>
-                <div class="profile-info-container">
-                    <span class="field-title">Devices:</span>
-                    <input class="text-field">
-                </div>
+<!--                <div class="profile-info-container">-->
+<!--                    <span class="field-title">Devices:</span>-->
+<!--                    <input class="text-field">-->
+<!--                </div>-->
                 <div class="profile-info-container">
                     <span class="field-title">Most Common Song Trait:</span>
                     <input class="text-field">
+                </div>
+                <div class="profile-info-container">
+                    <span class="field-title">Top Songs Right Now:</span>
                 </div>
             </div>
         </div>

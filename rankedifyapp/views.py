@@ -8,6 +8,8 @@ import json
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from django.contrib import messages
+
+import rankedifyapp
 from .forms import ProfileForm, UserProfileForm
 from .models import Profile
 from django.shortcuts import redirect
@@ -38,7 +40,6 @@ def receive_minutes(request):
             return JsonResponse({"error": "Invalid JSON"}, status=400)
     return JsonResponse({"error": "Invalid request"}, status=405)
 
-
 def profile(request):
     return render(request, 'rankedify/profile.html')
 
@@ -63,6 +64,8 @@ def signup(request):
     if request.method == "POST":
 
         username = request.POST.get('username')
+        forename = request.POST.get('forename')
+        surname = request.POST.get('surname')
         password = request.POST.get('password')
         email = request.POST.get('email')
         confirm_password = request.POST.get('confirm_password')
@@ -80,6 +83,11 @@ def signup(request):
             return render(request, "rankedify/signup.html")
         
         user = User.objects.create_user(username=username, email=email, password=password)
+        user_profile = Profile.objects.create(forename=forename, surname=surname)
+
+        user.save()
+        user_profile.save()
+
         login(request, user)
         return redirect('rankedifyapp:home')
     else:
@@ -93,7 +101,7 @@ def user_login(request):
         
         if user:
             login(request, user)
-            return redirect('rankedify:home')
+            return redirect('rankedifyapp:home')
         else:
             return HttpResponse("Invalid login")
     
@@ -112,3 +120,9 @@ def default_page(request):
 
 def error_page(request):
     return render(request, "rankedify/error-page.html")
+
+def redirect_home(request):
+    return render(request, "rankedify/home.html")
+
+def get_spotify_data(request):
+    return render(request, "rankedify/profile.html")
