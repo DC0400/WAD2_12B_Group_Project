@@ -2,8 +2,10 @@ const clientId = "8033023b2d8c496195b5c1c161d0e825";
 const params = new URLSearchParams(window.location.search);
 const code = params.get("code");
 
-let accessToken = localStorage.getItem("access_token");
-if (!accessToken) {
+//localStorage.clear();
+
+//let accessToken = localStorage.getItem("access_token");
+// if (!accessToken) {
     if (!code) {
         redirectToAuthCodeFlow(clientId);
     } else {
@@ -16,15 +18,15 @@ if (!accessToken) {
             }
         });
     }
-} else {
-    loadData(accessToken);
-}
+// } else {
+//     loadData(accessToken);
+// }
 
 async function loadData(token) {
     const profile = await fetchProfile(token);
     //console.log(profile);
     sendProfileToServer(profile);
-    populateUI(profile);
+    //populateUI(profile);
 
     const topTracks = await fetchTopTracks(token);
     sendDataToServer(topTracks);
@@ -90,7 +92,7 @@ export async function getAccessToken(clientId, code) {
     const data = await result.json();
 
     if (data.access_token) {
-        localStorage.setItem("access_token", data.access_token); // Save token
+        //localStorage.setItem("access_token", data.access_token); // Save token
         return data.access_token;
     } else {
         console.error("Error getting access token:", data);
@@ -196,21 +198,21 @@ async function sendProfileToServer(data) {
     }
 }
 
-function populateUI(profile){
-    document.getElementById("displayName").innerText = profile.display_name;
-    if (profile.images[0]) {
-        const profileImage = new Image(200, 200);
-        profileImage.src = profile.images[0].url;
-        document.getElementById("avatar").appendChild(profileImage);
-        document.getElementById("imgUrl").innerText = profile.images[0].url;
-    }
-    document.getElementById("id").innerText = profile.id;
-    document.getElementById("email").innerText = profile.email;
-    document.getElementById("uri").innerText = profile.uri;
-    document.getElementById("uri").setAttribute("href", profile.external_urls.spotify);
-    document.getElementById("url").innerText = profile.href;
-    document.getElementById("url").setAttribute("href", profile.href);
-}
+// function populateUI(profile){
+//     document.getElementById("displayName").innerText = profile.display_name;
+//     if (profile.images[0]) {
+//         const profileImage = new Image(200, 200);
+//         profileImage.src = profile.images[0].url;
+//         document.getElementById("avatar").appendChild(profileImage);
+//         document.getElementById("imgUrl").innerText = profile.images[0].url;
+//     }
+//     document.getElementById("id").innerText = profile.id;
+//     document.getElementById("email").innerText = profile.email;
+//     document.getElementById("uri").innerText = profile.uri;
+//     document.getElementById("uri").setAttribute("href", profile.external_urls.spotify);
+//     document.getElementById("url").innerText = profile.href;
+//     document.getElementById("url").setAttribute("href", profile.href);
+// }
 
 function populateSongs(top_songs){
     const trackList = document.getElementById("track-list");
