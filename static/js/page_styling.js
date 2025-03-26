@@ -39,10 +39,13 @@ $(document).ready(function() {
     $(".text-field").addClass("self-end")
 
     //friends.html
-    $(".friends").addClass("h-[100px] overflow-auto")
-    $(".friends-container").addClass("w-[650px] max-h-[250px] border-[3px] border-zinc-900 mx-auto rounded bg-gray-900 mt-[5%] text-gray-300 font-semibold")
+    $(".friends-page-content").addClass("mt-[5%] ml-[5%]")
+    $(".user-table").addClass("w-[650px] max-h-[250px] border-[3px] border-zinc-900 rounded bg-gray-900 text-gray-300 font-semibold mb-12")
+    $(".user-entries").addClass("h-[100px] overflow-auto")
     $(".friends-entry").addClass("border-t-[2px]")
-    $(".friends-friend").addClass("w-1/2 flex-1 border-r-[3px] border-zinc-950")
+    $(".friends-title").addClass("rounded-tl")
+    $(".user-lists").addClass("h-[100px] overflow-auto")
+    $(".user-entry").addClass("w-1/2 flex-1 border-r-[3px] border-zinc-950")
 
     //Log_in.html/ signup.html Styling
     $(".login-and-create-account-form").addClass("ps-40 pt-8")
