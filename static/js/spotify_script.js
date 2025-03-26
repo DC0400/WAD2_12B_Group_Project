@@ -2,8 +2,10 @@ const clientId = "8033023b2d8c496195b5c1c161d0e825";
 const params = new URLSearchParams(window.location.search);
 const code = params.get("code");
 
-let accessToken = localStorage.getItem("access_token");
-if (!accessToken) {
+//localStorage.clear();
+
+//let accessToken = localStorage.getItem("access_token");
+// if (!accessToken) {
     if (!code) {
         redirectToAuthCodeFlow(clientId);
     } else {
@@ -16,9 +18,9 @@ if (!accessToken) {
             }
         });
     }
-} else {
-    loadData(accessToken);
-}
+// } else {
+//     loadData(accessToken);
+// }
 
 async function loadData(token) {
     const profile = await fetchProfile(token);
@@ -90,7 +92,7 @@ export async function getAccessToken(clientId, code) {
     const data = await result.json();
 
     if (data.access_token) {
-        localStorage.setItem("access_token", data.access_token); // Save token
+        //localStorage.setItem("access_token", data.access_token); // Save token
         return data.access_token;
     } else {
         console.error("Error getting access token:", data);
