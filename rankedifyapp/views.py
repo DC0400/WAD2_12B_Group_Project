@@ -8,7 +8,9 @@ import json
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from django.contrib import messages
-from .forms import ProfileForm
+
+import rankedifyapp
+from .forms import ProfileForm, UserProfileForm
 from .models import Profile
 from django.shortcuts import redirect
 
@@ -21,7 +23,7 @@ def receive_tracks(request):
     if request.method == "POST":
         try:
             data = json.loads(request.body)
-            #print("Received Top Tracks:", data)
+            print("Received Top Tracks:", data)
             return JsonResponse({"message": "Data received successfully"}, status=200)
         except json.JSONDecodeError:
             return JsonResponse({"error": "Invalid JSON"}, status=400)
@@ -38,6 +40,16 @@ def receive_minutes(request):
             return JsonResponse({"error": "Invalid JSON"}, status=400)
     return JsonResponse({"error": "Invalid request"}, status=405)
 
+@csrf_exempt
+def receive_profile(request):
+    if request.method == "POST":
+        try:
+            data = json.loads(request.body)
+            print("Received Profile:", data)
+            return JsonResponse({"message": "Data received successfully"}, status=200)
+        except json.JSONDecodeError:
+            return JsonResponse({"error": "Invalid JSON"}, status=400)
+    return JsonResponse({"error": "Invalid request"}, status=405)
 
 def profile(request):
     return render(request, 'rankedify/profile.html')
@@ -61,8 +73,12 @@ def friends(request):
 
 def signup(request):
     if request.method == "POST":
+
         username = request.POST.get('username')
+        forename = request.POST.get('forename')
+        surname = request.POST.get('surname')
         password = request.POST.get('password')
+        email = request.POST.get('email')
         confirm_password = request.POST.get('confirm_password')
         
         if password != confirm_password:
@@ -72,10 +88,19 @@ def signup(request):
         if User.objects.filter(username=username).exists():
             messages.error(request, "Username already taken")
             return render(request, "rankedify/signup.html")
+
+        if User.objects.filter(email=email).exists():
+            messages.error(request, "Email already used")
+            return render(request, "rankedify/signup.html")
         
-        user = User.objects.create_user(username=username, password=password)
+        user = User.objects.create_user(username=username, email=email, password=password)
+        user_profile = Profile.objects.create(forename=forename, surname=surname)
+
+        user.save()
+        user_profile.save()
+
         login(request, user)
-        return redirect('rankedify:home')
+        return redirect('rankedifyapp:home')
     else:
         return render(request, "rankedify/signup.html")
 
@@ -87,7 +112,7 @@ def user_login(request):
         
         if user:
             login(request, user)
-            return redirect('rankedify:home')
+            return redirect('rankedifyapp:home')
         else:
             return HttpResponse("Invalid login")
     
@@ -106,3 +131,9 @@ def default_page(request):
 
 def error_page(request):
     return render(request, "rankedify/error-page.html")
+
+def redirect_home(request):
+    return render(request, "rankedify/home.html")
+
+def get_spotify_data(request):
+    return render(request, "rankedify/profile.html")

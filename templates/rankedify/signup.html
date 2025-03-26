@@ -1,26 +1,47 @@
 {% extends "rankedify/template-page.html" %}
 
-{% block title %} Friends {% endblock %}
+{% block title %} Sign Up {% endblock %}
 
 {% block main-body %}
     <div class="login-and-create-account-form">
-        <form>
+        <form method="post" action="{% url 'rankedifyapp:signup' %}">
+            {% csrf_token %}
             <div class="user-login">
                 <div class="input-container">
-                    <span class="input-title">Username:</span>
-                    <input class="text-field">
+                    <span class="input-title">
+                        <label for="username">Username:</label>
+                    </span>
+                    <input class="text-field" id="username" name="username">
                 </div>
                 <div class="input-container">
-                    <span class="input-title">Email:</span>
-                    <input class="text-field">
+                    <span class="input-title">
+                        <label for="forename">Forename:</label>
+                    </span>
+                    <input class="text-field" id="forename" name="forename">
                 </div>
                 <div class="input-container">
-                    <span class="input-title">Password:</span>
-                    <input class="text-field">
+                    <span class="input-title">
+                        <label for="surname">Surname:</label>
+                    </span>
+                    <input class="text-field" id="surname" name="surname">
                 </div>
                 <div class="input-container">
-                    <span class="input-title">Confirm:</span>
-                    <input class="text-field">
+                    <span class="input-title">
+                        <label for="email">Email:</label>
+                    </span>
+                    <input class="text-field" id="email" name="email">
+                </div>
+                <div class="input-container">
+                    <span class="input-title">
+                        <label for="password">Password:</label>
+                    </span>
+                    <input class="text-field" id="password" name="password">
+                </div>
+                <div class="input-container">
+                    <span class="input-title">
+                        <label for="confirm_password">Confirm Password:</label>
+                    </span>
+                    <input class="text-field" id="confirm_password" name="confirm_password">
                 </div>
             </div>
             <input class="button" type="submit" value="Create Account"/>
