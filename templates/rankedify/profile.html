@@ -2,10 +2,12 @@
 
 {% load staticfiles %}
 
+{% block extra-js %} 
+<script src="{% static 'js/spotify_script.js' %}" type="module"></script>
+{%endblock%}
 
 {% block title %}
-    <title>Profile</title>
-    <script src="{% static 'js/spotify_script.js' %}" type="module"></script>
+    Profile
 {% endblock %}
 
 {% block main-body %}

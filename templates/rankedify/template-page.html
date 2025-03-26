@@ -13,6 +13,8 @@
         <!--Links jquery script that applies styling to the appropiate elements-->
         <script src="{% static 'js/page_styling.js' %}"></script>
 
+        {% block extra-js %} {% endblock %}
+
         <title>Rankedify - {% block title %}{% endblock %}</title>
     </head>
     <body>
