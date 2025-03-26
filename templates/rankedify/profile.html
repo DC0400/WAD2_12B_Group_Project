@@ -7,12 +7,12 @@
 
 {% block main-body %}
     <div class="page-splitter">
-        <div class="profile-content pl-[5%] w-[60%]">
+        <div class="profile-content pt-[2%] pl-[5%] w-[60%]">
             <div class="picture-and-friend flex gap-x-2">
                 <img width="200" src="{% static 'images/alrighty-then.gif' %}"/>
 
                 <button id="friend-button" onclick="toggleFriendButtonStatus(this)" class="h-10 bg-zinc-950 text-white semi-bold p-2 w-32">
-                    Friend
+                    Add Friend
                 </button>      
             </div>
 
@@ -54,12 +54,12 @@
         function toggleFriendButtonStatus(friendButton) {
             let button_text = friendButton.textContent || friendButton.innerText;
 
-            if (button_text == "Friend") {
+            if (button_text == "Add Friend") {
                 friendButton.textContent = "Unfriend"
                 friendButton.innerText = "Unfriend"
             } else {
-                friendButton.textContent = "Friend"
-                friendButton.innerText = "Friend"
+                friendButton.textContent = "Add Friend"
+                friendButton.innerText = "Add Friend"
             }
         }
     </script>
