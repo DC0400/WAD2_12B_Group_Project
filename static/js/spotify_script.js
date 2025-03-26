@@ -2,23 +2,23 @@ const clientId = "8033023b2d8c496195b5c1c161d0e825";
 const params = new URLSearchParams(window.location.search);
 const code = params.get("code");
 
-// let accessToken = localStorage.getItem("access_token");
-// if (!accessToken) {
+let accessToken = localStorage.getItem("access_token");
+if (!accessToken) {
     if (!code) {
         redirectToAuthCodeFlow(clientId);
     } else {
         getAccessToken(clientId, code).then(token => {
             if (token) {
-                //localStorage.setItem("access_token", token);
+                localStorage.setItem("access_token", token);
                 loadData(token);
             } else {
                 console.error("Failed to retrieve access token");
             }
         });
     }
-// } else {
-//     loadData(accessToken);
-// }
+} else {
+    loadData(accessToken);
+}
 
 async function loadData(token) {
     const profile = await fetchProfile(token);
