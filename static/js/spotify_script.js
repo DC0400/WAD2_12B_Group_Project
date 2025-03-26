@@ -24,7 +24,7 @@ async function loadData(token) {
     const profile = await fetchProfile(token);
     //console.log(profile);
     sendProfileToServer(profile);
-    populateUI(profile);
+    //populateUI(profile);
 
     const topTracks = await fetchTopTracks(token);
     sendDataToServer(topTracks);
