@@ -2,27 +2,28 @@ const clientId = "8033023b2d8c496195b5c1c161d0e825";
 const params = new URLSearchParams(window.location.search);
 const code = params.get("code");
 
-let accessToken = localStorage.getItem("access_token");
-if (!accessToken) {
+// let accessToken = localStorage.getItem("access_token");
+// if (!accessToken) {
     if (!code) {
         redirectToAuthCodeFlow(clientId);
     } else {
         getAccessToken(clientId, code).then(token => {
             if (token) {
-                localStorage.setItem("access_token", token);
+                //localStorage.setItem("access_token", token);
                 loadData(token);
             } else {
                 console.error("Failed to retrieve access token");
             }
         });
     }
-} else {
-    loadData(accessToken);
-}
+// } else {
+//     loadData(accessToken);
+// }
 
 async function loadData(token) {
     const profile = await fetchProfile(token);
-    console.log(profile);
+    //console.log(profile);
+    sendProfileToServer(profile);
     populateUI(profile);
 
     const topTracks = await fetchTopTracks(token);
@@ -77,7 +78,7 @@ export async function getAccessToken(clientId, code) {
     params.append("client_id", clientId);
     params.append("grant_type", "authorization_code");
     params.append("code", code);
-    params.append("redirect_uri", "http://127.0.0.1:8000/rankedify/callback");
+    params.append("redirect_uri", "http://127.0.0.1:8000/callback");
     params.append("code_verifier", verifier);
 
     const result = await fetch("https://accounts.spotify.com/api/token", {
@@ -165,6 +166,22 @@ async function sendDataToServer(data) {
 
 async function sendDataToServerMinutes(data) {
     const response = await fetch("http://127.0.0.1:8000/rankedify/api/receive_minutes/", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(data)
+    });
+
+    if (response.ok) {
+        console.log("Data successfully sent to the server.");
+    } else {
+        console.error("Failed to send data to the server.");
+    }
+}
+
+async function sendProfileToServer(data) {
+    const response = await fetch("http://127.0.0.1:8000/rankedify/api/receive_profile/", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
