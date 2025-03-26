@@ -12,13 +12,14 @@ $(document).ready(function() {
     $(".nav-item").addClass("px-4 text-green-50 font-semibold h-full cursor-pointer hover:bg-green-600 transition duration-300 flex items-center");
     
     //home.html
-    $(".leaderboard-container").addClass("w-[650px] max-h-[250px] border-[3px] border-zinc-900 mx-auto rounded bg-gray-900 mt-[5%] text-gray-300 font-semibold");
+    $(".leaderboard-container").addClass("min-w-[650px] max-h-[250px] border-[3px] border-zinc-900 mx-auto rounded bg-gray-900 mt-[5%] text-gray-300 font-semibold");
     //home.html: searchbar
     $(".leaderboard-search").addClass("border-b-[2px] pl-1 border-zinc-950 pt-[2px] pb-[2px]")
     $(".leaderboard-search-box").addClass("rounded-lg w-32 pl-2 pr-2")
     //home.html: entry
     $(".leaderboard").addClass("relative h-[89%]")
-    $(".leaderboard-user-entry").addClass("flex h-12 w-full border-t-[2px] [&_:is(span)]:pl-[3px] border-zinc-950 absolute bottom-0")
+    $(".non-user-entries").addClass("overflow-auto h-[60%]")
+    $(".leaderboard-user-entry").addClass("flex h-12 w-full border-t-[2px] [&_:is(span)]:pl-[3px] bg-gray-800 border-zinc-950 absolute bottom-0")
     $(".leaderboard-entry").addClass("flex h-12 border-b-[2px] [&_:is(span)]:pl-[3px] border-zinc-950");
     $(".leaderboard-entry-title").addClass("border-b-[3px]")
     $(".leaderboard-position").addClass("w-1/12 flex-none border-r-[3px] border-zinc-950")
