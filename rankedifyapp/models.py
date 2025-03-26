@@ -9,6 +9,7 @@ class Profile(User):
     spotify_username = models.CharField(max_length=150, unique=True, blank=True, null=True)
     rank = models.IntegerField(default=0)
     top_song = models.CharField(max_length=100, null=True, blank=True)
+    listening_minutes = models.IntegerField(default=0)
     last_logged_in = models.IntegerField(default=0)
     slug = models.SlugField(unique=True)
 
