@@ -28,6 +28,7 @@ $(document).ready(function() {
 
     //home.html/profile.html
     $(".page-splitter").addClass("flex flex-col justify-center lg:justify-normal lg:flex-row h-full")
+    $(".page-seperator-line").addClass("border-b lg:border-l")
 
     //error-page.html
     $(".message-container").addClass("m-auto w-96")
