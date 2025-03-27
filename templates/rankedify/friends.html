@@ -1,6 +1,12 @@
 {% extends "rankedify/template-page.html" %}
 
+{% load staticfiles %}
+
 {% block title %} Friends {% endblock %}
+
+{% block extra-js %}
+<script src="{% static 'js/search_bar_scripts.js' %}" type="module"></script>
+{% endblock %}
 
 {% block main-body %}
 <div class="friends-page-content">
@@ -36,10 +42,10 @@
 
     <section class="user-table mt-12s">
         Find User <br>
-        <input type="text" placeholder="Search..." class="leaderboard-search-box" />
+        <input type="text" placeholder="Search..." id="user-search" class="leaderboard-search-box" />
 
     <div class="user-entries">
-        <ul>
+        <ul id="user-entries">
             <li class="friends-entry">
                 <span class="user-entry">Example Name</span> 
             </li>
