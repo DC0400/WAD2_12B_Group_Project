@@ -26,7 +26,7 @@ async function loadData(token) {
     const profile = await fetchProfile(token);
     //console.log(profile);
     sendProfileToServer(profile);
-    //populateUI(profile);
+    populateUI(profile);
 
     const topTracks = await fetchTopTracks(token);
     sendDataToServer(topTracks);
@@ -213,6 +213,17 @@ async function sendProfileToServer(data) {
 //     document.getElementById("url").innerText = profile.href;
 //     document.getElementById("url").setAttribute("href", profile.href);
 // }
+
+function populateUI(profile){
+    //document.getElementById("displayName").innerText = profile.display_name;
+    if(profile.images[0]){
+        const profileImage = new Image(200, 200);
+        profileImage.src = profile.images[0].url;
+        document.getElementById("avatar").appendChild(profileImage);
+        //document.getElementById("imgUrl").innerText = profile.images[0].url;
+    }
+    //document.getElementById("id").innerText = profile.id;
+}
 
 function populateSongs(top_songs){
     const trackList = document.getElementById("track-list");

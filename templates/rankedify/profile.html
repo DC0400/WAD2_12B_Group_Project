@@ -25,9 +25,7 @@
                         <input class="text-field">
                     </div>
                     <div class="profile-info-container">
-                        <span class="field-title">Spotify Username:
-                            <span id="displayname"></span>
-                        </span>
+                        <span class="field-title">Spotify Username:</span>
                         <input class="text-field">
                     </div>
     <!--                <div class="profile-info-container">-->
@@ -46,10 +44,16 @@
     <!--                    <span class="field-title">Devices:</span>-->
     <!--                    <input class="text-field">-->
     <!--                </div>-->
-                    <div class="profile-info-container">
-                        <span class="field-title">Most Common Song Trait:</span>
-                        <input class="text-field">
-                    </div>
+{#                    <div class="profile-info-container">#}
+{#                        <span class="field-title">Most Common Song Trait:</span>#}
+{#                        <input class="text-field">#}
+{#                    </div>#}
+                        <section id="top_songs">
+                            <div class="profile-info-container">
+                                <span class="field-title"><strong>Top Songs Right Now:</strong></span>
+                            </div>
+                                <span id="track-list"></span>
+                        </section>
                 </div>
             </div>
 
@@ -58,13 +62,6 @@
 
             <canvas class="max-w-[450px]" height="188" width="450"></canvas>
         </div>
-    </section>
-
-    <section id="top_songs">
-        <div class="profile-info-container">
-            <span class="field-title">Top Songs Right Now:</span>
-        </div>
-        <span id="track-list"></span>
     </section>
 
     <script> 
