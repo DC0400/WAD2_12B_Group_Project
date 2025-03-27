@@ -19,5 +19,5 @@ urlpatterns = [
     path('api/receive_profile/', views.receive_profile, name='receive_profile'),
     path('api/receive_photo/', views.receive_photo, name='receive_photo'),
     path('api/receive_spotify_username/', views.receive_spotify_username, name='receive_spotify_username'),
-    path('users/<slug:username_slug>/' views.)
+    path('users/<slug:username_slug>', views.view_profile, name='view_profile'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

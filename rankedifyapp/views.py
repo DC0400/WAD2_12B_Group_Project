@@ -120,6 +120,12 @@ def receive_spotify_username(request):
 def profile(request):
     return render(request, 'rankedify/profile.html')
 
+def view_profile(request, usrename_slug):
+    context_dict = {}
+
+
+    return render(request, 'rankedify/profile.html')
+
 def edit_profile(request):
     profile = request.user.profile
     if request.method == "POST":
