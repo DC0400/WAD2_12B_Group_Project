@@ -47,7 +47,7 @@ $(document).ready(function() {
     $(".friends-entry").addClass("border-t-[2px] cursor-pointer hover:bg-gray-700")
     $(".friends-title").addClass("rounded-tl")
     $(".user-lists").addClass("h-[100px] overflow-auto")
-    $(".user-entry").addClass("w-1/2 flex-1 border-r-[3px] border-zinc-950")
+    $(".user-entry").addClass("w-1/2 flex-1 border-zinc-950")
 
     //Log_in.html/ signup.html Styling
     $(".login-and-create-account-form").addClass("ps-40 pt-8")
