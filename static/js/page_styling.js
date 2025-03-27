@@ -27,7 +27,7 @@ $(document).ready(function() {
     $(".leaderboard-listening-time").addClass("w-1/3 flex-1 pt-[12px]")
 
     //home.html/profile.html
-    $(".page-splitter").addClass("flex h-full")
+    $(".page-splitter").addClass("flex flex-col justify-center lg:justify-normal lg:flex-row h-full")
 
     //error-page.html
     $(".message-container").addClass("m-auto w-96")
