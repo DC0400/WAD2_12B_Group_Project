@@ -26,14 +26,16 @@ async function loadData(token) {
     const profile = await fetchProfile(token);
     //console.log(profile);
     sendProfileToServer(profile);
-    populateUI(profile);
+    if(populateUI(profile)){
+        sendPhotoToServer(profile);
+    }
 
     const topTracks = await fetchTopTracks(token);
     sendDataToServer(topTracks);
     populateSongs(topTracks.items)
 
     const listeningMinutes = await fetchMinutes(token);
-    sendDataToServerMinutes(listeningMinutes);
+    sendDataToServerMinutes(listeningMinutes.items);
     calculateMinutes(listeningMinutes.items);
 }
 
@@ -167,12 +169,21 @@ async function sendDataToServer(data) {
 }
 
 async function sendDataToServerMinutes(data) {
+    let totalMinutes = 0;
+
+    data.forEach(items => {
+        totalMinutes += items.track.duration_ms;
+    })
+
+    //totalMinutes = totalMinutes / 60000;
+    totalMinutes = Math.round(totalMinutes / 60000);
+
     const response = await fetch("http://127.0.0.1:8000/rankedify/api/receive_minutes/", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
         },
-        body: JSON.stringify(data)
+        body: JSON.stringify(totalMinutes)
     });
 
     if (response.ok) {
@@ -190,6 +201,40 @@ async function sendProfileToServer(data) {
         },
         body: JSON.stringify(data)
     });
+
+    if (response.ok) {
+        console.log("Data successfully sent to the server.");
+    } else {
+        console.error("Failed to send data to the server.");
+    }
+}
+
+async function sendPhotoToServer(data){
+    let url = data.images[0].url;
+    const response = await fetch("http://127.0.0.1:8000/rankedify/api/receive_photo/", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(url)
+    })
+
+    if (response.ok) {
+        console.log("Data successfully sent to the server.");
+    } else {
+        console.error("Failed to send data to the server.");
+    }
+}
+
+async function sendSpotifyUsernameToServer(data){
+    let spotify_username = data.id
+    const response = await fetch("http://127.0.0.1:8000/rankedify/api/receive_spotify_username/", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(spotify_username)
+    })
 
     if (response.ok) {
         console.log("Data successfully sent to the server.");
@@ -221,6 +266,8 @@ function populateUI(profile){
         profileImage.src = profile.images[0].url;
         document.getElementById("avatar").appendChild(profileImage);
         //document.getElementById("imgUrl").innerText = profile.images[0].url;
+
+        return true;
     }
     //document.getElementById("id").innerText = profile.id;
 }
