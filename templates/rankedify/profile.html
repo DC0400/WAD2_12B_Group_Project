@@ -2,79 +2,82 @@
 
 {% load staticfiles %}
 
+{% block extra-js %} 
+<script src="{% static 'js/spotify_script.js' %}" type="module"></script>
+
+<script> 
+    function toggleFriendButtonStatus(friendButton) {
+        let button_text = friendButton.textContent || friendButton.innerText;
+
+        if (button_text == "Add Friend") {
+            friendButton.textContent = "Unfriend"
+            friendButton.innerText = "Unfriend"
+        } else {
+            friendButton.textContent = "Add Friend"
+            friendButton.innerText = "Add Friend"
+        }
+    }
+</script>
+{%endblock%}
 
 {% block title %}
-    <title>Profile</title>
-    <script src="{% static 'js/spotify_script.js' %}" type="module"></script>
+    Profile
 {% endblock %}
 
 {% block main-body %}
-    <section id="profile">
-        <div class="page-splitter">
-            <div class="profile-content pl-[5%] w-[60%]">
-                <div class="picture-and-friend flex gap-x-2">
-                    <span id="avatar"></span>
-                    <button id="friend-button" onclick="toggleFriendButtonStatus(this)" class="h-10 bg-zinc-950 text-white semi-bold p-2 w-32">
-                        Friend
-                    </button>
-                </div>
-
-                <div class="mt-12">
-                    <div class="profile-info-container">
-                        <span class="field-title">Username:</span>
-                        <input class="text-field">
-                    </div>
-                    <div class="profile-info-container">
-                        <span class="field-title">Spotify Username:</span>
-                        <input class="text-field">
-                    </div>
-    <!--                <div class="profile-info-container">-->
-    <!--                    <span class="field-title">Favourite Album:</span>-->
-    <!--                    <input class="text-field">-->
-    <!--                </div>-->
-    <!--                <div class="profile-info-container">-->
-    <!--                    <span class="field-title">Favourite Artist:</span>-->
-    <!--                    <input class="text-field">-->
-    <!--                </div>-->
-                    <div class="profile-info-container">
-                        <span class="field-title">Favourite Song:</span>
-                        <input class="text-field">
-                    </div>
-    <!--                <div class="profile-info-container">-->
-    <!--                    <span class="field-title">Devices:</span>-->
-    <!--                    <input class="text-field">-->
-    <!--                </div>-->
-{#                    <div class="profile-info-container">#}
-{#                        <span class="field-title">Most Common Song Trait:</span>#}
-{#                        <input class="text-field">#}
-{#                    </div>#}
-                        <section id="top_songs">
-                            <div class="profile-info-container">
-                                <span class="field-title"><strong>Top Songs Right Now:</strong></span>
-                            </div>
-                                <span id="track-list"></span>
-                        </section>
-                </div>
+    <div class="page-splitter">
+        <div class="profile-content pl-[5%] w-[60%]">
+            <div class="picture-and-friend flex gap-x-2">
+                <span id="avatar"></span>
+                <button id="friend-button" onclick="toggleFriendButtonStatus(this)" class="h-10 bg-zinc-950 text-white semi-bold p-2 w-32">
+                    Friend
+                </button>
             </div>
 
-            <div class="border-l">
+            <div class="mt-12">
+                <div class="profile-info-container">
+                    <span class="field-title">Username:</span>
+                    <input class="text-field">
+                </div>
+                <div class="profile-info-container">
+                    <span class="field-title">Spotify Username:
+                        <span id="displayname"></span>
+                    </span>
+                    <input class="text-field">
+                </div>
+<!--                <div class="profile-info-container">-->
+<!--                    <span class="field-title">Favourite Album:</span>-->
+<!--                    <input class="text-field">-->
+<!--                </div>-->
+<!--                <div class="profile-info-container">-->
+<!--                    <span class="field-title">Favourite Artist:</span>-->
+<!--                    <input class="text-field">-->
+<!--                </div>-->
+                <div class="profile-info-container">
+                    <span class="field-title">Favourite Song:</span>
+                    <input class="text-field">
+                </div>
+<!--                <div class="profile-info-container">-->
+<!--                    <span class="field-title">Devices:</span>-->
+<!--                    <input class="text-field">-->
+<!--                </div>-->
+                <div class="profile-info-container">
+                    <span class="field-title">Most Common Song Trait:</span>
+                    <input class="text-field">
+                </div>
             </div>
-
-            <canvas class="max-w-[450px]" height="188" width="450"></canvas>
         </div>
+
+        <div class="page-seperator-line">
+        </div>
+
+        <canvas class="max-w-[450px] mx-auto" height="188" width="450"></canvas>
+    </div>
+
+    <section id="top_songs">
+        <div class="profile-info-container">
+            <span class="field-title">Top Songs Right Now:</span>
+        </div>
+        <span id="track-list"></span>
     </section>
-
-    <script> 
-        function toggleFriendButtonStatus(friendButton) {
-            let button_text = friendButton.textContent || friendButton.innerText;
-
-            if (button_text == "Add Friend") {
-                friendButton.textContent = "Unfriend"
-                friendButton.innerText = "Unfriend"
-            } else {
-                friendButton.textContent = "Add Friend"
-                friendButton.innerText = "Add Friend"
-            }
-        }
-    </script>
 {% endblock %}
