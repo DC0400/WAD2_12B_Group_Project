@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from django.db import models
 
 class Profile(User):
+    username_profile = models.CharField(max_length=100, default="blank")
     forename = models.CharField(max_length=100)
     surname = models.CharField(max_length=100)
     photo = models.ImageField(upload_to='user_photos/', blank=True)
@@ -22,6 +23,11 @@ class Profile(User):
 
     def __str__(self):
         return self.username
+
+class ListeningMinutesPerTime(models.Model):
+    username_minutes = models.CharField(max_length=100)
+    listening_minutes = models.IntegerField(default=0)
+    last_logged_in = models.IntegerField(default=0)
 
 
 class Artist(models.Model):
