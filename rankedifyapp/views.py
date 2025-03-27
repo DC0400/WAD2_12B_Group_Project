@@ -125,9 +125,17 @@ def view_profile(request, username_slug):
 
     try:
         username = Profile.objects.get(slug=username_slug)
-        context_dict['username'] = username
+        profile = Profile.objects.get(username=username)
+
+        context_dict['username'] = profile.username
+        context_dict['spotify_username'] = profile.spotify_username
+        context_dict['photo'] = profile.photo
+        context_dict['favourite_song'] = profile.favourite_song
     except Profile.DoesNotExist:
         context_dict['username'] = None
+        context_dict['spotify_username'] = None
+        context_dict['photo'] = None
+        context_dict['favourite_song'] = None
 
     return render(request, 'rankedify/profile.html', context=context_dict)
 
