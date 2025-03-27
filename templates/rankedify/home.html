@@ -21,7 +21,7 @@
                     {% with forloop.counter0  as i %}
                         <li class="leaderboard-entry">
                             <span class="leaderboard-position">#{{ i }}</span> 
-                            <span class="leaderboard-username"> {{ profile.username_profile }}</span> 
+                            <span class="leaderboard-username"> {{ profile.username }}</span> 
                             <span class="leaderboard-listening-time"> {{ profile.listening_minutes }} </span>
                         </li>
                     {% endwith %}
