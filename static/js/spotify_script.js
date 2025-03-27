@@ -23,6 +23,8 @@ const code = params.get("code");
 // }
 
 async function loadData(token) {
+    reloadProfile();
+
     const profile = await fetchProfile(token);
     //console.log(profile);
     sendProfileToServer(profile);
@@ -37,7 +39,7 @@ async function loadData(token) {
 
     const listeningMinutes = await fetchMinutes(token);
     sendDataToServerMinutes(listeningMinutes.items);
-    calculateMinutes(listeningMinutes.items);
+    //calculateMinutes(listeningMinutes.items);
 }
 
 export async function redirectToAuthCodeFlow(clientId){
@@ -309,4 +311,21 @@ function calculateMinutes(recentlyListened){
     // });
 
     document.getElementById("listeningMinutes").innerHTML = totalMinutes.toString() + " Minutes";
+}
+
+async function reloadProfile(){
+     let blankData = "";
+     const result = await fetch(window.location.origin + "/rankedify/profile/", {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(blankData)
+    });
+
+    if(result.ok){
+        console.log("Data successfully sent to the server.");
+    } else {
+        console.error("Failed to send data to the server.");
+    }
 }

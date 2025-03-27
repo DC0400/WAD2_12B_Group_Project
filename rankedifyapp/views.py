@@ -107,7 +107,7 @@ def receive_spotify_username(request):
             username = get_user_profile(request)
             for profiles in Profile.objects.all():
                 if profiles.username == username:
-                    print(data)
+                    #print(data)
                     profiles.spotify_username = data
                     profiles.save()
 
@@ -117,8 +117,33 @@ def receive_spotify_username(request):
             return JsonResponse({"error": "Invalid JSON"}, status=400)
     return JsonResponse({"error": "Invalid request"}, status=405)
 
+@csrf_exempt
 def profile(request):
-    return render(request, 'rankedify/profile.html')
+    context_dict = {}
+
+    username = get_user_profile(request)
+    for profiles in Profile.objects.all():
+        if profiles.username == username:
+            context_dict["top_song"] = profiles.top_song
+            context_dict["spotify_username"] = profiles.spotify_username
+            context_dict["username"] = profiles.username
+
+    if request.method == "POST":
+        try:
+            top_song = json.loads(request.body)
+            context_dict["top_song"] = top_song
+            for profiles in Profile.objects.all():
+                if profiles.username == username:
+                    profiles.top_song = top_song
+                    profiles.save()
+
+            return render(request, "rankedify/profile.html", context=context_dict)
+
+        except json.JSONDecodeError:
+            return JsonResponse({"error": "Invalid JSON"}, status=400)
+
+    print("Context:" + context_dict["username"])
+    return render(request, 'rankedify/profile.html', context=context_dict)
 
 def view_profile(request, username_slug):
     context_dict = {}
