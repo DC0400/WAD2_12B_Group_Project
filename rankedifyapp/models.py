@@ -16,9 +16,9 @@ class Profile(User):
     def name(self):
         return f"{self.forename} {self.surname} - {self.spotify_username}"
 
-    # def save(self, *args, **kwargs):
-    #     self.slug = slugify(self.spotify_username)
-    #     super(Profile, self).save(*args, **kwargs)
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.username)
+        super(Profile, self).save(*args, **kwargs)
 
     def __str__(self):
         return self.username
