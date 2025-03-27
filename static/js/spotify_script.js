@@ -29,6 +29,7 @@ async function loadData(token) {
     if(populateUI(profile)){
         sendPhotoToServer(profile);
     }
+    sendSpotifyUsernameToServer(profile);
 
     const topTracks = await fetchTopTracks(token);
     sendDataToServer(topTracks);
@@ -227,7 +228,7 @@ async function sendPhotoToServer(data){
 }
 
 async function sendSpotifyUsernameToServer(data){
-    let spotify_username = data.id
+    let spotify_username = data.id;
     const response = await fetch("http://127.0.0.1:8000/rankedify/api/receive_spotify_username/", {
         method: "POST",
         headers: {

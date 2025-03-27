@@ -46,7 +46,7 @@ def receive_minutes(request):
             username = get_user_profile(request)
             for profiles in Profile.objects.all():
                 if profiles.username == username:
-                    print(profiles.username)
+                    #print(profiles.username)
                     profiles.listening_minutes += data
                     profiles.save()
 
@@ -107,7 +107,7 @@ def receive_spotify_username(request):
             username = get_user_profile(request)
             for profiles in Profile.objects.all():
                 if profiles.username == username:
-                    print(profiles.username)
+                    print(data)
                     profiles.spotify_username = data
                     profiles.save()
 
