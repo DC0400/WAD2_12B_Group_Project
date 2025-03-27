@@ -201,9 +201,9 @@ def user_logout(request):
 
 def home(request):
     context_dict = {}
-    context_dict['current_user_profile'] = get_user_profile(request)
+    context_dict['current_user_profile'] = Profile.objects.get(username=get_user_profile(request))
     context_dict['all_user_profiles'] = Profile.objects.order_by("-listening_minutes")
-    print(f"{context_dict['all_user_profiles']}")
+    print(f"{type(context_dict['current_user_profile'])}")
 
     return render(request, "rankedify/home.html", context=context_dict)
 
