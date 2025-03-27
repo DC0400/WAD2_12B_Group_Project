@@ -4,6 +4,20 @@
 
 {% block extra-js %} 
 <script src="{% static 'js/spotify_script.js' %}" type="module"></script>
+
+<script> 
+    function toggleFriendButtonStatus(friendButton) {
+        let button_text = friendButton.textContent || friendButton.innerText;
+
+        if (button_text == "Add Friend") {
+            friendButton.textContent = "Unfriend"
+            friendButton.innerText = "Unfriend"
+        } else {
+            friendButton.textContent = "Add Friend"
+            friendButton.innerText = "Add Friend"
+        }
+    }
+</script>
 {%endblock%}
 
 {% block title %}
@@ -66,18 +80,4 @@
         </div>
         <span id="track-list"></span>
     </section>
-
-    <script> 
-        function toggleFriendButtonStatus(friendButton) {
-            let button_text = friendButton.textContent || friendButton.innerText;
-
-            if (button_text == "Add Friend") {
-                friendButton.textContent = "Unfriend"
-                friendButton.innerText = "Unfriend"
-            } else {
-                friendButton.textContent = "Add Friend"
-                friendButton.innerText = "Add Friend"
-            }
-        }
-    </script>
 {% endblock %}
