@@ -10,6 +10,7 @@
 
 ## External Sources 
 - Tailwind CSS
+- Charts.js
 
 
 ## Software Requirements
