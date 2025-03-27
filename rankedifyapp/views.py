@@ -195,7 +195,12 @@ def user_logout(request):
     return redirect('rankedify:home')
 
 def home(request):
-    return render(request, "rankedify/home.html")
+    context_dict = {}
+    context_dict['current_user_profile'] = get_user_profile(request)
+    context_dict['all_user_profiles'] = Profile.objects.order_by("-listening_minutes")
+    print(f"{context_dict['all_user_profiles']}")
+
+    return render(request, "rankedify/home.html", context=context_dict)
 
 def default_page(request):
     response = redirect("rankedify/home")
