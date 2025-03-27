@@ -35,9 +35,10 @@ $(document).ready(function() {
     $("h2").addClass("text-lg")
 
     //profile.html
-    $(".profile-info-container").addClass("w-[500px] flex justify-between space-x-8")
+    $(".profile-info-container").addClass("w-[500px] flex justify-between space-x-4")
     $(".field-title").addClass("self-start")
     $(".text-field").addClass("self-end")
+    $(".edit-button").addClass("w-12")
 
     //friends.html
     $(".friends-page-content").addClass("mt-[5%] ml-[5%]")
