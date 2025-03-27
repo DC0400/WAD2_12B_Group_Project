@@ -120,11 +120,24 @@ def receive_spotify_username(request):
 def profile(request):
     return render(request, 'rankedify/profile.html')
 
-def view_profile(request, usrename_slug):
+def view_profile(request, username_slug):
     context_dict = {}
 
+    try:
+        username = Profile.objects.get(slug=username_slug)
+        profile = Profile.objects.get(username=username)
 
-    return render(request, 'rankedify/profile.html')
+        context_dict['username'] = profile.username
+        context_dict['spotify_username'] = profile.spotify_username
+        context_dict['photo'] = profile.photo
+        context_dict['favourite_song'] = profile.favourite_song
+    except Profile.DoesNotExist:
+        context_dict['username'] = None
+        context_dict['spotify_username'] = None
+        context_dict['photo'] = None
+        context_dict['favourite_song'] = None
+
+    return render(request, 'rankedify/profile.html', context=context_dict)
 
 def edit_profile(request):
     profile = request.user.profile
