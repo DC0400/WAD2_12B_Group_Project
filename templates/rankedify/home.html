@@ -1,6 +1,12 @@
 {% extends "rankedify/template-page.html" %}
 
+{% load staticfiles %}
+
 {% block title %} Home {% endblock %}
+
+{% block extra-js %} 
+<script src="{% static 'js/search_bar_scripts.js' %}" type="module"></script>
+{% endblock %}
 
 {% block main-body %}
 <div class="page-splitter">
