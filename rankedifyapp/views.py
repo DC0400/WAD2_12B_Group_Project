@@ -35,6 +35,9 @@ def receive_minutes(request):
         try:
             data = json.loads(request.body)
             #print("Received Top Tracks:", data)
+
+
+
             return JsonResponse({"message": "Data received successfully"}, status=200)
         except json.JSONDecodeError:
             return JsonResponse({"error": "Invalid JSON"}, status=400)
@@ -137,3 +140,6 @@ def redirect_home(request):
 
 def get_spotify_data(request):
     return render(request, "rankedify/profile.html")
+
+def get_user_profile(request):
+    user = request.user
