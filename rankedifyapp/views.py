@@ -23,7 +23,7 @@ def receive_tracks(request):
     if request.method == "POST":
         try:
             data = json.loads(request.body)
-            print("Received Top Tracks:", data)
+            #print("Received Top Tracks:", data)
             return JsonResponse({"message": "Data received successfully"}, status=200)
         except json.JSONDecodeError:
             return JsonResponse({"error": "Invalid JSON"}, status=400)
@@ -34,9 +34,15 @@ def receive_minutes(request):
     if request.method == "POST":
         try:
             data = json.loads(request.body)
-            #print("Received Top Tracks:", data)
+            print("Received Minutes:", data)
 
-
+            username = get_user_profile(request)
+            for profiles in Profile.objects.all():
+                #print(profiles.username)
+                if profiles.username == username:
+                    print(profiles.username)
+                    profiles.listening_minutes += data
+                    profiles.save()
 
             return JsonResponse({"message": "Data received successfully"}, status=200)
         except json.JSONDecodeError:
@@ -48,7 +54,7 @@ def receive_profile(request):
     if request.method == "POST":
         try:
             data = json.loads(request.body)
-            print("Received Profile:", data)
+            #print("Received Profile:", data)
             return JsonResponse({"message": "Data received successfully"}, status=200)
         except json.JSONDecodeError:
             return JsonResponse({"error": "Invalid JSON"}, status=400)
@@ -96,11 +102,11 @@ def signup(request):
             messages.error(request, "Email already used")
             return render(request, "rankedify/signup.html")
         
-        user = User.objects.create_user(username=username, email=email, password=password)
-        user_profile = Profile.objects.create(forename=forename, surname=surname)
+        user = Profile.objects.create_user(username=username, email=email, password=password, forename=forename, surname=surname)
+        #user_profile = Profile.objects.create(forename=forename, surname=surname, user=user)
 
         user.save()
-        user_profile.save()
+        #user_profile.save()
 
         login(request, user)
         return redirect('rankedifyapp:home')
@@ -142,4 +148,6 @@ def get_spotify_data(request):
     return render(request, "rankedify/profile.html")
 
 def get_user_profile(request):
-    user = request.user
+    username = request.user.username
+    #print(username)
+    return username

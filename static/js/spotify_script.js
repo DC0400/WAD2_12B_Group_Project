@@ -33,7 +33,7 @@ async function loadData(token) {
     populateSongs(topTracks.items)
 
     const listeningMinutes = await fetchMinutes(token);
-    sendDataToServerMinutes(listeningMinutes);
+    sendDataToServerMinutes(listeningMinutes.items);
     calculateMinutes(listeningMinutes.items);
 }
 
@@ -167,12 +167,21 @@ async function sendDataToServer(data) {
 }
 
 async function sendDataToServerMinutes(data) {
+    let totalMinutes = 0;
+
+    data.forEach(items => {
+        totalMinutes += items.track.duration_ms;
+    })
+
+    //totalMinutes = totalMinutes / 60000;
+    totalMinutes = Math.round(totalMinutes / 60000);
+
     const response = await fetch("http://127.0.0.1:8000/rankedify/api/receive_minutes/", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
         },
-        body: JSON.stringify(data)
+        body: JSON.stringify(totalMinutes)
     });
 
     if (response.ok) {
