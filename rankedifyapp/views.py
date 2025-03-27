@@ -72,9 +72,9 @@ def receive_photo(request):
         try:
             photo_url = json.loads(request.body)
 
-            static_images_path = os.path.join(settings.STATIC_DIR, "images")
-            os.makedirs(static_images_path, exist_ok=True)
-            image_path = os.path.join(static_images_path, get_user_profile(request) + ".jpg")
+            #media_images_path = os.path.join(settings.MEDIA_DIR, "images")
+            os.makedirs(settings.MEDIA_DIR, exist_ok=True)
+            image_path = os.path.join(settings.MEDIA_DIR, get_user_profile(request) + ".jpg")
 
             response = requests.get(photo_url)
             if response.status_code == 200:
@@ -127,17 +127,22 @@ def view_profile(request, username_slug):
         username = Profile.objects.get(slug=username_slug)
         profile = Profile.objects.get(username=username)
 
-        context_dict['username'] = profile.username
+        file_path = profile.photo.path
+        split = file_path.split('\\')
+        path = split[-1]
+
+        context_dict['username'] = username
         context_dict['spotify_username'] = profile.spotify_username
-        context_dict['photo'] = profile.photo
-        context_dict['favourite_song'] = profile.favourite_song
+        context_dict['photo'] = path
+        print("photo: " + path)
+        #context_dict['favourite_song'] = profile.favourite_song
     except Profile.DoesNotExist:
         context_dict['username'] = None
         context_dict['spotify_username'] = None
         context_dict['photo'] = None
-        context_dict['favourite_song'] = None
+        #context_dict['favourite_song'] = None
 
-    return render(request, 'rankedify/profile.html', context=context_dict)
+    return render(request, 'rankedify/userprofile.html', context=context_dict)
 
 def edit_profile(request):
     profile = request.user.profile

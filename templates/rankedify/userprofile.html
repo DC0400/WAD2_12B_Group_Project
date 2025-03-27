@@ -3,7 +3,9 @@
 {% load staticfiles %}
 
 {% block extra-js %}
-
+    
+<script src={% static 'js/profile_scripts.js' %}
+        
 <script> 
     function toggleFriendButtonStatus(friendButton) {
         let button_text = friendButton.textContent || friendButton.innerText;
@@ -24,65 +26,37 @@
 {% endblock %}
 
 {% block main-body %}
-    {% if username %}
-        <div class="page-splitter">
-            <div class="profile-content pl-[5%] w-[60%]">
-                <div class="picture-and-friend flex gap-x-2">
-                    <span id="avatar"></span>
-                    <button id="friend-button" onclick="toggleFriendButtonStatus(this)" class="h-10 bg-zinc-950 text-white semi-bold p-2 w-32">
-                        Friend
-                    </button>
-                </div>
-    
-                <div class="mt-12">
-                    <div class="profile-info-container">
-                        <span class="field-title">Username:</span>
-                        <input class="text-field">
-                    </div>
-                    <div class="profile-info-container">
-                        <span class="field-title">Spotify Username:
-                            <span id="displayname"></span>
-                        </span>
-                        <input class="text-field">
-                    </div>
-    <!--                <div class="profile-info-container">-->
-    <!--                    <span class="field-title">Favourite Album:</span>-->
-    <!--                    <input class="text-field">-->
-    <!--                </div>-->
-    <!--                <div class="profile-info-container">-->
-    <!--                    <span class="field-title">Favourite Artist:</span>-->
-    <!--                    <input class="text-field">-->
-    <!--                </div>-->
-                    <div class="profile-info-container">
-                        <span class="field-title">Favourite Song:</span>
-                        <input class="text-field">
-                    </div>
-    <!--                <div class="profile-info-container">-->
-    <!--                    <span class="field-title">Devices:</span>-->
-    <!--                    <input class="text-field">-->
-    <!--                </div>-->
-                    <div class="profile-info-container">
-                        <span class="field-title">Most Common Song Trait:</span>
-                        <input class="text-field">
-                    </div>
-                </div>
+    <div class="page-splitter">
+        <div class="profile-content pl-[5%] w-[60%]">
+            <div class="picture-and-friend flex gap-x-2">
+                <img src="{{ MEDIA_URL }}{{ photo }}"
+                     alt="User Avatar" />
+                <button id="friend-button" onclick="toggleFriendButtonStatus(this)" class="h-10 bg-zinc-950 text-white semi-bold p-2 w-32">
+                    Friend
+                </button>
             </div>
-    
-            <div class="page-seperator-line">
-            </div>
-    
-            <canvas class="max-w-[450px] mx-auto" height="188" width="450"></canvas>
-        </div>
-    {% else %}
-        <div>
-            <strong>User does not exist.</strong>
-        </div>
-    {% endif %}
 
-    <section id="top_songs">
-        <div class="profile-info-container">
-            <span class="field-title">Top Songs Right Now:</span>
+            <div class="mt-12">
+                <div class="profile-info-container">
+                    <span class="field-title">Username:</span>
+                    <input class="text-field" value="{{ username }}" readonly>
+                </div>
+                <div class="profile-info-container">
+                    <span class="field-title">Spotify Username:
+                        <span id="displayname"></span>
+                    </span>
+                    <input class="text-field" value="{{ spotify_username }}" readonly>
+                </div>
+                <div class="profile-info-container">
+                    <span class="field-title">Favourite Song:</span>
+                    <input class="text-field" id="favourite-song" value="{{ favourite_song }}" readonly>
+                </div>
+            </div>
         </div>
-        <span id="track-list"></span>
-    </section>
+
+        <div class="page-seperator-line">
+        </div>
+
+        <canvas class="max-w-[450px] mx-auto" height="188" width="450"></canvas>
+    </div>
 {% endblock %}
