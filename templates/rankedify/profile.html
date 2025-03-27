@@ -4,22 +4,9 @@
 
 {% block extra-js %} 
 <script src="{% static 'js/spotify_script.js' %}" type="module"></script>
-    
-<script src={% static 'js/profile_scripts.js' %}
-        
-<script> 
-    function toggleFriendButtonStatus(friendButton) {
-        let button_text = friendButton.textContent || friendButton.innerText;
 
-        if (button_text == "Add Friend") {
-            friendButton.textContent = "Unfriend"
-            friendButton.innerText = "Unfriend"
-        } else {
-            friendButton.textContent = "Add Friend"
-            friendButton.innerText = "Add Friend"
-        }
-    }
-</script>
+<script src={% static 'js/profile_scripts.js' %}></script>
+    
 {%endblock%}
 
 {% block title %}
@@ -31,27 +18,30 @@
         <div class="profile-content pl-[5%] w-[60%]">
             <div class="picture-and-friend flex gap-x-2">
                 <span id="avatar"></span>
-                <button id="friend-button" onclick="toggleFriendButtonStatus(this)" class="h-10 bg-zinc-950 text-white semi-bold p-2 w-32">
-                    Friend
-                </button>
             </div>
 
             <div class="mt-12">
                 <div class="profile-info-container">
-                    <span class="field-title">Username:</span>
+                    <span class="field-title"><strong>Username:</strong></span>
                     <input class="text-field" readonly>
                 </div>
                 <div class="profile-info-container">
-                    <span class="field-title">Spotify Username:
+                    <span class="field-title"><strong>Username:</strong>
                         <span id="displayname"></span>
                     </span>
                     <input class="text-field" readonly>
                 </div>
                 <div class="profile-info-container">
-                    <span class="field-title">Favourite Song:</span>
+                    <span class="field-title"><strong>Favourite Song:</strong></span>
                     <input class="text-field" id="favourite-song" readonly>
                 </div>
                 <button class="edit-button button">Edit</button>
+                <section id="top_songs">
+                    <div class="profile-info-container">
+                    <span class="field-title"><strong>Songs Right Now:</strong></span>
+                    </div>
+                    <span id="track-list"></span>
+                </section>
             </div>
         </div>
 
@@ -60,11 +50,4 @@
 
         <canvas class="max-w-[450px] mx-auto" height="188" width="450"></canvas>
     </div>
-
-    <section id="top_songs">
-        <div class="profile-info-container">
-            <span class="field-title">Top Songs Right Now:</span>
-        </div>
-        <span id="track-list"></span>
-    </section>
 {% endblock %}
