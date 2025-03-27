@@ -16,22 +16,16 @@
                 <span class="leaderboard-listening-time">Listening Time (minutes)</span>
             </div>
             <ul class="non-user-entries"> 
-                
-                <li class="leaderboard-entry">
-                    <span class="leaderboard-position">#1</span> 
-                    <span class="leaderboard-username">Example Name</span> 
-                    <span class="leaderboard-listening-time">3000</span>
-                </li>
-                <li class="leaderboard-entry">
-                    <span class="leaderboard-position">#2</span> 
-                    <span class="leaderboard-username">Example Name2</span> 
-                    <span class="leaderboard-listening-time">2000</span>
-                </li> 
-                <li class="leaderboard-entry">
-                    <span class="leaderboard-position">#2</span> 
-                    <span class="leaderboard-username">Example Name2</span> 
-                    <span class="leaderboard-listening-time">2000</span>
-                </li>        
+
+                {% for profile in all_user_profiles %}
+                    {% with forloop.counter0  as i %}
+                        <li class="leaderboard-entry">
+                            <span class="leaderboard-position">#{{ i }}</span> 
+                            <span class="leaderboard-username"> {{ profile.username_profile }}</span> 
+                            <span class="leaderboard-listening-time"> {{ profile.listening_minutes }} </span>
+                        </li>
+                    {% endwith %}
+                {% endfor %}      
             </ul>
 
             <div class="leaderboard-user-entry">
