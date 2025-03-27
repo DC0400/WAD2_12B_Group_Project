@@ -26,7 +26,9 @@ async function loadData(token) {
     const profile = await fetchProfile(token);
     //console.log(profile);
     sendProfileToServer(profile);
-    populateUI(profile);
+    if(populateUI(profile)){
+        sendPhotoToServer(profile);
+    }
 
     const topTracks = await fetchTopTracks(token);
     sendDataToServer(topTracks);
@@ -207,6 +209,40 @@ async function sendProfileToServer(data) {
     }
 }
 
+async function sendPhotoToServer(data){
+    let url = data.images[0].url;
+    const response = await fetch("http://127.0.0.1:8000/rankedify/api/receive_photo/", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(url)
+    })
+
+    if (response.ok) {
+        console.log("Data successfully sent to the server.");
+    } else {
+        console.error("Failed to send data to the server.");
+    }
+}
+
+async function sendSpotifyUsernameToServer(data){
+    let spotify_username = data.id
+    const response = await fetch("http://127.0.0.1:8000/rankedify/api/receive_spotify_username/", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(spotify_username)
+    })
+
+    if (response.ok) {
+        console.log("Data successfully sent to the server.");
+    } else {
+        console.error("Failed to send data to the server.");
+    }
+}
+
 // function populateUI(profile){
 //     document.getElementById("displayName").innerText = profile.display_name;
 //     if (profile.images[0]) {
@@ -230,6 +266,8 @@ function populateUI(profile){
         profileImage.src = profile.images[0].url;
         document.getElementById("avatar").appendChild(profileImage);
         //document.getElementById("imgUrl").innerText = profile.images[0].url;
+
+        return true;
     }
     //document.getElementById("id").innerText = profile.id;
 }

@@ -1,5 +1,8 @@
+import os
+
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+from django.contrib.sites import requests
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.http import JsonResponse
@@ -8,11 +11,15 @@ import json
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from django.contrib import messages
+from rankedify import settings
 
 import rankedifyapp
 from .forms import ProfileForm, UserProfileForm
 from .models import Profile
 from django.shortcuts import redirect
+
+import time
+import requests
 
 
 def index(request):
@@ -34,11 +41,10 @@ def receive_minutes(request):
     if request.method == "POST":
         try:
             data = json.loads(request.body)
-            print("Received Minutes:", data)
+            #print("Received Minutes:", data)
 
             username = get_user_profile(request)
             for profiles in Profile.objects.all():
-                #print(profiles.username)
                 if profiles.username == username:
                     print(profiles.username)
                     profiles.listening_minutes += data
@@ -54,6 +60,57 @@ def receive_profile(request):
     if request.method == "POST":
         try:
             data = json.loads(request.body)
+            print("Received Profile:", data)
+            return JsonResponse({"message": "Data received successfully"}, status=200)
+        except json.JSONDecodeError:
+            return JsonResponse({"error": "Invalid JSON"}, status=400)
+    return JsonResponse({"error": "Invalid request"}, status=405)
+
+@csrf_exempt
+def receive_photo(request):
+    if request.method == "POST":
+        try:
+            photo_url = json.loads(request.body)
+
+            static_images_path = os.path.join(settings.STATIC_DIR, "images")
+            os.makedirs(static_images_path, exist_ok=True)
+            image_path = os.path.join(static_images_path, get_user_profile(request) + ".jpg")
+
+            response = requests.get(photo_url)
+            if response.status_code == 200:
+                with open(image_path, "wb") as file:
+                    file.write(response.content)
+
+                username = get_user_profile(request)
+                for profiles in Profile.objects.all():
+                    if profiles.username == username:
+                        #print(profiles.username)
+                        profiles.photo = image_path
+                        profiles.save()
+
+                #print("Photo received successfully")
+            else:
+                print("Photo not received")
+
+            #print("Received Photo:", photo_url)
+            return JsonResponse({"message": "Data received successfully"}, status=200)
+        except json.JSONDecodeError:
+            return JsonResponse({"error": "Invalid JSON"}, status=400)
+    return JsonResponse({"error": "Invalid request"}, status=405)
+
+@csrf_exempt
+def receive_spotify_username(request):
+    if request.method == "POST":
+        try:
+            data = json.loads(request.body)
+
+            username = get_user_profile(request)
+            for profiles in Profile.objects.all():
+                if profiles.username == username:
+                    print(profiles.username)
+                    profiles.spotify_username = data
+                    profiles.save()
+
             #print("Received Profile:", data)
             return JsonResponse({"message": "Data received successfully"}, status=200)
         except json.JSONDecodeError:
@@ -102,7 +159,7 @@ def signup(request):
             messages.error(request, "Email already used")
             return render(request, "rankedify/signup.html")
         
-        user = Profile.objects.create_user(username=username, email=email, password=password, forename=forename, surname=surname)
+        user = Profile.objects.create_user(username=username, email=email, password=password, forename=forename, surname=surname, last_logged_in=(time.time()*1000))
         #user_profile = Profile.objects.create(forename=forename, surname=surname, user=user)
 
         user.save()
@@ -149,5 +206,4 @@ def get_spotify_data(request):
 
 def get_user_profile(request):
     username = request.user.username
-    #print(username)
     return username
