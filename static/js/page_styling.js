@@ -12,7 +12,7 @@ $(document).ready(function() {
     $(".nav-item").addClass("px-4 text-green-50 font-semibold h-full cursor-pointer hover:bg-green-600 transition duration-300 flex items-center");
     
     //home.html
-    $(".leaderboard-container").addClass("min-w-[650px] max-h-[250px] border-[3px] border-zinc-900 mx-auto rounded bg-gray-900 mt-[5%] text-gray-300 font-semibold");
+    $(".leaderboard-container").addClass("min-w-[650px] max-h-[250px] min-h-[250px] border-[3px] border-zinc-900 mx-auto rounded bg-gray-900 mt-[5%] mb-[5%] lg:mb-[0%] text-gray-300 font-semibold");
     //home.html: searchbar
     $(".leaderboard-search").addClass("border-b-[2px] pl-1 border-zinc-950 pt-[2px] pb-[2px]")
     $(".leaderboard-search-box").addClass("rounded-lg w-32 pl-2 pr-2")
@@ -39,6 +39,10 @@ $(document).ready(function() {
     $(".field-title").addClass("self-start")
     $(".text-field").addClass("self-end")
     $(".edit-button").addClass("w-12")
+    //Top songs
+    $("#top_songs_title").addClass()
+    $("#top_songs").addClass("h-[400px] w-[400px] overflow-auto bg-zinc-950 text-green-50 rounded")
+    $(".profile-info-container").addClass("w-full")
 
     //friends.html
     $(".friends-page-content").addClass("mt-[5%] ml-[5%]")
