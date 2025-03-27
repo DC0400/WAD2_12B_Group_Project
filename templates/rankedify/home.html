@@ -18,7 +18,7 @@
             <ul class="non-user-entries"> 
 
                 {% for profile in all_user_profiles %}
-                    {% with forloop.counter0  as i %}
+                    {% with forloop.counter  as i %}
                         <li class="leaderboard-entry">
                             <span class="leaderboard-position">#{{ i }}</span> 
                             <span class="leaderboard-username"> {{ profile.username }}</span> 
@@ -30,8 +30,8 @@
 
             <div class="leaderboard-user-entry">
                 <span class="leaderboard-position text-center"> <span class="text-center">You</span> <br> #543</span>
-                <span class="leaderboard-username">Example Name4</span> 
-                <span class="leaderboard-listening-time">2</span>
+                <span class="leaderboard-username"> {{ current_user_profile.username }} </span> 
+                <span class="leaderboard-listening-time"> {{ current_user_profile.listening_minutes }} </span>
             </div>
         </div>
 
