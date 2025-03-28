@@ -184,13 +184,13 @@ def is_friend(request, friend_profile):
     is_friend_bool = False
 
     try:
-        Friends.objects.get(user1=request.user, user2=friend_profile.user)
+        Friends.objects.get(user1_id=request.user.id, user2_id=friend_profile.user.id)
         is_friend_bool = True
         print(is_friend_bool)
         return is_friend_bool
     except:
         try:
-            Friends.objects.get(user1=friend_profile.user, user2=request.user)
+            Friends.objects.get(user1_id=friend_profile.user.id, user2_id=request.user.id)
             is_friend_bool = True
             print(is_friend_bool)
             return is_friend_bool
