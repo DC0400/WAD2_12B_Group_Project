@@ -46,24 +46,17 @@
 
     <div class="user-entries">
         <ul id="user-entries">
+            {% if all_users|length > 0 %}
+                {% for user in all_users %}
+                    <li class="friends-entry">
+                        <span class="user-entry">{{ user.username }}</span> 
+                    </li>
+                {% endfor %}
+            {% else %}
             <li class="friends-entry">
-                <span class="user-entry">Example Name</span> 
-            </li>
-            <li class="friends-entry">
-                <span class="user-entry">Example Name2</span> 
-            </li>
-            <li class="friends-entry">
-                <span class="user-entry">Example Name3</span> 
-            </li>
-            <li class="friends-entry">
-                <span class="user-entry">Example Name4</span> 
-            </li>
-            <li class="friends-entry">
-                <span class="user-entry">Example Name5</span> 
-            </li>
-            <li class="friends-entry">
-                <span class="user-entry">Example Name5</span> 
-            </li>
+                <span class="user-entry">no current users</span> 
+            </li>  
+            {% endif %}
         </ul>
     </div>
     </section>

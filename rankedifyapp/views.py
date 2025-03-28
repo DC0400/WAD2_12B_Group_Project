@@ -188,7 +188,9 @@ def edit_profile(request):
 
 
 def friends(request):
-    return render(request, "rankedify/friends.html")
+    context_dict = {}
+    context_dict['all_users'] = Profile.objects.order_by("username")
+    return render(request, "rankedify/friends.html", context=context_dict)
 
 def signup(request):
     if request.method == "POST":

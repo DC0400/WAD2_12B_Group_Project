@@ -6,6 +6,7 @@
 
 {% block extra-js %} 
 <script src="{% static 'js/search_bar_scripts.js' %}" type="module"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
 {% endblock %}
 
 {% block main-body %}
@@ -22,7 +23,6 @@
                 <span class="leaderboard-listening-time">Listening Time (minutes)</span>
             </div>
             <ul class="non-user-entries"> 
-
                 {% for profile in all_user_profiles %}
                     {% with forloop.counter  as i %}
                         <li class="leaderboard-entry">
@@ -47,8 +47,43 @@
     <div class="page-seperator-line">
     </div>
 
-    <canvas class="max-w-[450px]" height="188" width="450">
+    <canvas id="average_listening_time" class="max-w-[550px] mx-auto bg-gray-900 mt-[5%] rounded" height="188" width="450">
 
     </canvas>
 </div>
+
+<script>
+    const xValues = [50,60,70,80,90,100,110,120,130,140,150];
+    const yValues = [7,8,8,9,9,9,10,11,14,14,15];
+    
+    new Chart("average_listening_time", {
+      type: "line",
+      data: {
+        labels: xValues,
+        datasets: [{
+          fill: false,
+          lineTension: 0,
+          backgroundColor: "#1DB954",  // Spotify Green
+          borderColor: "rgba(30, 215, 96, 0.8)", // Slightly transparent green border
+          pointBackgroundColor: "#1DB954",
+          pointBorderColor: "#fff",
+          pointHoverBackgroundColor: "#fff",
+          pointHoverBorderColor: "#1DB954",
+          data: yValues
+        }]
+      },
+      options: {
+        legend: { display: false },
+        scales: {
+          yAxes: [{
+            ticks: { min: 6, max: 16 },
+            scaleLabel: {
+              display: true,
+              labelString: "listening time (minutes)"
+            }
+          }]
+        }
+      }
+    });
+    </script>
 {% endblock %}
