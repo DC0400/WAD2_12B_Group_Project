@@ -14,7 +14,7 @@
     <section class="leaderboard-container">
         
         <div class="leaderboard-search">
-            Genre <input placeholder="search..." type="text" class="leaderboard-search-box" />
+            User Search <input placeholder="search..." type="text" class="leaderboard-search-box" />
         </div>
         <div class="leaderboard">
             <div class="leaderboard-entry leaderboard-entry-title">
@@ -47,7 +47,7 @@
     <div class="page-seperator-line">
     </div>
 
-    <canvas id="average_listening_time" class="max-w-[550px] mx-auto bg-gray-900 mt-[5%] rounded" height="188" width="450">
+    <canvas id="average_listening_time" class="graph">
 
     </canvas>
 </div>
@@ -76,7 +76,7 @@
         legend: { display: false },
         scales: {
           yAxes: [{
-            ticks: { min: 6, max: 16 },
+            ticks: { min: 0},
             scaleLabel: {
               display: true,
               labelString: "listening time (minutes)"
