@@ -157,9 +157,12 @@ def view_profile(request, username_slug):
         username = Profile.objects.get(slug=username_slug)
         profile = Profile.objects.get(username=username)
 
-        file_path = profile.photo.path
-        split = file_path.split('\\')
-        path = split[-1]
+        if profile.photo.path:
+            file_path = profile.photo.path
+            split = file_path.split('\\')
+            path = split[-1]
+        else:
+            path = "default.jpg"
 
         context_dict['username'] = username
         context_dict['spotify_username'] = profile.spotify_username
