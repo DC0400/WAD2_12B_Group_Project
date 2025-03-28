@@ -36,13 +36,13 @@ $(document).ready(function() {
     $("h2").addClass("text-lg")
 
     //profile.html
-    $(".profile-info-container").addClass("w-[500px] flex justify-between space-x-4")
+    $(".profile-info-container").addClass("max-w-[500px] flex justify-between space-x-4")
     $(".field-title").addClass("self-start")
     $(".text-field").addClass("self-end")
     $(".edit-button").addClass("w-12")
     //Top songs
     $("#top_songs_title").addClass()
-    $("#top_songs").addClass("h-[400px] w-[400px] overflow-auto bg-zinc-950")
+    $("#top_songs").addClass("h-[400px] w-[400px] overflow-auto")
     $(".profile-info-container").addClass("w-full")
 
     //friends.html
