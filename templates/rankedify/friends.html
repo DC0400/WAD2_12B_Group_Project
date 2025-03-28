@@ -19,22 +19,30 @@
         </div>
 
         <div class="user-entries">
-            <ul>
-                <li class="friends-entry">
-                    <span class="user-entry">Example Name</span> 
-                </li>
-                <li class="friends-entry">
-                    <span class="user-entry">Example Name2</span> 
-                </li>
-                <li class="friends-entry">
-                    <span class="user-entry">Example Name3</span> 
-                </li>
-                <li class="friends-entry">
-                    <span class="user-entry">Example Name4</span> 
-                </li>
-                <li class="friends-entry">
-                    <span class="user-entry">Example Name5</span> 
-                </li>
+            <ul class="user-entries">
+                {% if friends|length > 0 %}
+                    {% for friend in friends %}
+                        <li class="friends-entry">
+                            <span class="user-entry">{{ friend }}</span>
+                        </li>
+                    {% endfor %}
+                {% else %}
+                    <li class="friends-entry">
+                        <span class="user-entry">Example Name</span> 
+                    </li>
+                    <li class="friends-entry">
+                        <span class="user-entry">Example Name2</span> 
+                    </li>
+                    <li class="friends-entry">
+                        <span class="user-entry">Example Name3</span> 
+                    </li>
+                    <li class="friends-entry">
+                        <span class="user-entry">Example Name4</span> 
+                    </li>
+                    <li class="friends-entry">
+                        <span class="user-entry">Example Name5</span> 
+                    </li>
+                {% endif %}
             </ul>
         </div>
     </section>

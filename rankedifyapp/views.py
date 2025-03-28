@@ -15,7 +15,7 @@ from rankedify import settings
 
 import rankedifyapp
 from .forms import ProfileForm, UserProfileForm
-from .models import Profile, ListeningMinutesPerTime
+from .models import Profile, ListeningMinutesPerTime, Friends
 from django.shortcuts import redirect
 
 import time
@@ -190,6 +190,12 @@ def edit_profile(request):
 def friends(request):
     context_dict = {}
     context_dict['all_users'] = Profile.objects.order_by("username")
+    friends_list = Friends.objects.filter(user1=request.user) | Friends.objects.filter(user2=request.user)
+
+    #for friend in friends_list:
+
+
+
     return render(request, "rankedify/friends.html", context=context_dict)
 
 def signup(request):
@@ -254,6 +260,37 @@ def home(request):
         context_dict['all_user_profiles'] = None
 
     return render(request, "rankedify/home.html", context=context_dict)
+
+@csrf_exempt
+def add_friend(request):
+    if request.method == "POST":
+        context_dict = {}
+
+        friend_username = json.loads(request.body)
+        username = get_user_profile(request)
+
+        for profiles in Profile.objects.all():
+            if profiles.username == username:
+                user_profile = profiles.profile
+
+        for profiles in Profile.objects.all():
+            if profiles.username == friend_username:
+                friend_profile = profiles.profile
+
+                file_path = friend_profile.photo.path
+                split = file_path.split('\\')
+                path = split[-1]
+
+                context_dict['username'] = friend_profile.username
+                context_dict['spotify_username'] = friend_profile.spotify_username
+                context_dict['photo'] = path
+
+        if user_profile and friend_profile:
+            if user_profile != friend_profile:
+                new_friend = Friends.objects.create(user1=user_profile, user2=friend_profile)
+                new_friend.save()
+
+        return render(request, 'rankedify/userprofile.html', context=context_dict)
 
 def default_page(request):
     response = redirect("rankedify/home")
