@@ -237,13 +237,14 @@ def user_login(request):
         password = request.POST.get('password')
         user = authenticate(request,username=username, password=password)
         
-        if user:
+        if user is not None:
             login(request, user)
-            return redirect('rankedifyapp:home')
+            return redirect('rankedifyapp:home') 
         else:
-            return HttpResponse("Invalid login")
-    
-    return render(request, 'rankedify/login.html')
+            messages.error(request, "Invalid username or password. Please try again.")
+            return redirect('rankedifyapp:login')  
+    else:
+        return render(request, 'rankedify/login.html')
 
 def user_logout(request):
     logout(request)
