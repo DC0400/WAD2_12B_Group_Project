@@ -25,5 +25,5 @@ urlpatterns = [
     path('rankedify/', include('rankedifyapp.urls')),
     path('admin/', admin.site.urls),
     path('callback/', views.profile, name='callback'),
-
+    path('new_friend/', views.add_friend, name='add_friend'),
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
