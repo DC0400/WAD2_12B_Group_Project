@@ -21,8 +21,13 @@
         <nav>
             <div id="logo">Rankedify</div>
             <a href="/rankedify/home"><div class="nav-item">Home</div></a>
-            <a href="/rankedify/friends"><div class="nav-item">Friends</div></a>
-            <a href="/rankedify/login"><div class="nav-item">Log in</div></a>
+            {% if user.is_authenticated %}
+                <a href="/rankedify/friends"><div class="nav-item">Friends</div></a>
+            {% endif %}
+
+            {% if not user.is_authenticated %}
+                <a href="/rankedify/login"><div class="nav-item">Log in</div></a>
+            {% endif %}
             {% if user.is_authenticated %}
                 <a href="/rankedify/profile"><div class="nav-item">Profile</div></a>
             {% endif %}
