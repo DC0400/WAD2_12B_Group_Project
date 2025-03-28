@@ -33,6 +33,7 @@ SECRET_KEY = '*oo4l1svgp!(3y8^@3od2r_&3=11!vvsg(+1nsa#7+9m=zp&x%'
 DEBUG = True
 
 ALLOWED_HOSTS = ['rankedify.pythonanywhere.com/']
+#ALLOWED_HOSTS = []
 
 
 # Application definition

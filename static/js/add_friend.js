@@ -1,7 +1,7 @@
 async function toggleFriendButtonStatus(friendButton) {
         let button_text = friendButton.textContent || friendButton.innerText;
 
-        if (button_text == "Add Friend") {
+        if (button_text.includes("Add Friend")) {
             const result = await fetch(window.location.origin + "/new_friend/", {
                 method: "POST",
                 headers: {
@@ -19,7 +19,7 @@ async function toggleFriendButtonStatus(friendButton) {
                 console.error("Failed to send data to the server.");
             }
         } else {
-            const result = await fetch(window.location.origin + "/new_friend/", {
+            const result = await fetch(window.location.origin + "/remove_friend/", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
