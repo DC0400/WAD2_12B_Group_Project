@@ -6,7 +6,7 @@ $(document).ready( function() {
             $("#favourite-song").removeAttr("readonly")
             isReadonly = false;
         } else {
-            $(this).html("Edit")
+            $(this).html("Edit Favourite Song")
             $("#favourite-song").attr('readonly', true)
             let text = $("#favourite-song").val()
             postSave(text)

@@ -39,7 +39,7 @@ $(document).ready(function() {
     $(".profile-info-container").addClass("max-w-[500px] flex justify-between space-x-4")
     $(".field-title").addClass("self-start")
     $(".text-field").addClass("self-end")
-    $(".edit-button").addClass("w-12")
+    $(".edit-button").addClass("w-40")
     //Top songs
     $("#top_songs_title").addClass()
     $("#top_songs").addClass("h-[400px] w-[400px] overflow-auto")
