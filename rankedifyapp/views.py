@@ -181,13 +181,23 @@ def view_profile(request, username_slug):
     return render(request, 'rankedify/userprofile.html', context=context_dict)
 
 def is_friend(request, friend_profile):
-    user_profile = request.user.profile
+    is_friend_bool = False
 
-    for friend_objects in Friends.objects.all():
-        if friend_objects.user1_id == user_profile.id and friend_objects.user2_id == friend_profile.id | friend_objects.user2_id == user_profile.id and friend_objects.user1_id == friend_profile.id:
-            return True
-
-    return False
+    try:
+        Friends.objects.get(user1_id=request.user.id, user2_id=friend_profile.user.id)
+        is_friend_bool = True
+        print(is_friend_bool)
+        return is_friend_bool
+    except:
+        try:
+            Friends.objects.get(user1_id=friend_profile.user.id, user2_id=request.user.id)
+            is_friend_bool = True
+            print(is_friend_bool)
+            return is_friend_bool
+        except:
+            is_friend_bool = False
+            print(is_friend_bool)
+            return is_friend_bool
 
 def edit_profile(request):
     profile = request.user.profile
