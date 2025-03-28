@@ -119,13 +119,6 @@ async function fetchTopTracks(token) {
     }
 
     return data;
-
-    // const totalListeningTimeMs = data.items.reduce((sum, track) => sum + track.duration_ms, 0);
-    // const totalListeningMinutes = Math.round(totalListeningTimeMs / 60000);
-    //
-    // console.log(`Total listening time: ${totalListeningMinutes} minutes`);
-    //
-    // return { tracks: data.items, totalListeningMinutes };
 }
 
 async function fetchProfile(token) {
@@ -156,7 +149,7 @@ async function fetchMinutes(token){
 }
 
 async function sendDataToServer(data) {
-    const response = await fetch("http://127.0.0.1:8000/rankedify/api/receive_tracks/", {
+    const response = await fetch(window.location.origin + "/rankedify/api/receive_tracks/", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
@@ -181,7 +174,7 @@ async function sendDataToServerMinutes(data) {
     //totalMinutes = totalMinutes / 60000;
     totalMinutes = Math.round(totalMinutes / 60000);
 
-    const response = await fetch("http://127.0.0.1:8000/rankedify/api/receive_minutes/", {
+    const response = await fetch(window.location.origin + "/rankedify/api/receive_minutes/", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
@@ -197,7 +190,7 @@ async function sendDataToServerMinutes(data) {
 }
 
 async function sendProfileToServer(data) {
-    const response = await fetch("http://127.0.0.1:8000/rankedify/api/receive_profile/", {
+    const response = await fetch(window.location.origin + "/rankedify/api/receive_profile/", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
@@ -214,7 +207,7 @@ async function sendProfileToServer(data) {
 
 async function sendPhotoToServer(data){
     let url = data.images[0].url;
-    const response = await fetch("http://127.0.0.1:8000/rankedify/api/receive_photo/", {
+    const response = await fetch(window.location.origin + "/rankedify/api/receive_photo/", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
@@ -231,7 +224,7 @@ async function sendPhotoToServer(data){
 
 async function sendSpotifyUsernameToServer(data){
     let spotify_username = data.id;
-    const response = await fetch("http://127.0.0.1:8000/rankedify/api/receive_spotify_username/", {
+    const response = await fetch(window.location.origin + "/rankedify/api/receive_spotify_username/", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
@@ -246,33 +239,14 @@ async function sendSpotifyUsernameToServer(data){
     }
 }
 
-// function populateUI(profile){
-//     document.getElementById("displayName").innerText = profile.display_name;
-//     if (profile.images[0]) {
-//         const profileImage = new Image(200, 200);
-//         profileImage.src = profile.images[0].url;
-//         document.getElementById("avatar").appendChild(profileImage);
-//         document.getElementById("imgUrl").innerText = profile.images[0].url;
-//     }
-//     document.getElementById("id").innerText = profile.id;
-//     document.getElementById("email").innerText = profile.email;
-//     document.getElementById("uri").innerText = profile.uri;
-//     document.getElementById("uri").setAttribute("href", profile.external_urls.spotify);
-//     document.getElementById("url").innerText = profile.href;
-//     document.getElementById("url").setAttribute("href", profile.href);
-// }
-
 function populateUI(profile){
-    //document.getElementById("displayName").innerText = profile.display_name;
     if(profile.images[0]){
         const profileImage = new Image(200, 200);
         profileImage.src = profile.images[0].url;
         document.getElementById("avatar").appendChild(profileImage);
-        //document.getElementById("imgUrl").innerText = profile.images[0].url;
 
         return true;
     }
-    //document.getElementById("id").innerText = profile.id;
 }
 
 function populateSongs(top_songs){
@@ -296,19 +270,7 @@ function calculateMinutes(recentlyListened){
         totalMinutes += items.track.duration_ms;
     })
 
-    //totalMinutes = totalMinutes / 60000;
     totalMinutes = Math.round(totalMinutes / 60000);
-
-    // const elements = document.getElementById("listeningMinutes");
-    // elements.innerHTML = "";
-    //
-    // recentlyListened.forEach(items => {
-    //     const element = document.createElement("div");
-    //     element.innerHTML = `
-    //         <strong>${items.track.duration_ms}</strong><br>
-    //     `;
-    //     elements.appendChild(element)
-    // });
 
     document.getElementById("listeningMinutes").innerHTML = totalMinutes.toString() + " Minutes";
 }
