@@ -12,6 +12,7 @@ import json
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from django.contrib import messages
+from rankedify import settings
 
 import rankedifyapp
 from .forms import ProfileForm, UserProfileForm
@@ -248,6 +249,13 @@ def signup(request):
         if User.objects.filter(email=email).exists():
             messages.error(request, "Email already used")
             return render(request, "rankedify/signup.html")
+        
+        if validate_email(email):
+            messages.error(request, "Invalid email format")
+            return render(request, "rankedify/signup.html")
+        
+        
+            
         
         user = Profile.objects.create_user(username=username, email=email, password=password, forename=forename, surname=surname, last_logged_in=(time.time()*1000))
         #user_profile = Profile.objects.create(forename=forename, surname=surname, user=user)
