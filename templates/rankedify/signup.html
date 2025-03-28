@@ -4,6 +4,13 @@
 
 {% block main-body %}
     <div class="login-and-create-account-form">
+        {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                    <li class="{{ message.tags }}">{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
         <form method="post" action="{% url 'rankedifyapp:signup' %}">
             {% csrf_token %}
             <div class="user-login">
@@ -41,7 +48,7 @@
                     <span class="input-title">
                         <label for="confirm_password">Confirm Password:</label>
                     </span>
-                    <input class="text-field" id="confirm_password" name="confirm_password">
+                    <input class="text-field" id="confirm_password" name="confirm_password" type="password">
                 </div>
             </div>
             <input class="button" type="submit" value="Create Account"/>

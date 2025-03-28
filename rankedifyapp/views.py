@@ -13,6 +13,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from django.contrib import messages
 from rankedify import settings
+from django.core.validators import validate_email
 
 import rankedifyapp
 from .forms import ProfileForm, UserProfileForm
@@ -250,9 +251,12 @@ def signup(request):
             messages.error(request, "Email already used")
             return render(request, "rankedify/signup.html")
         
-        if validate_email(email):
+        try:
+            validate_email(email)
+        except:
             messages.error(request, "Invalid email format")
             return render(request, "rankedify/signup.html")
+        
         
         
             
