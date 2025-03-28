@@ -23,22 +23,22 @@
             <div class="mt-12">
                 <div class="profile-info-container">
                     <span class="field-title"><strong>Username:</strong></span>
-                    <input class="text-field" readonly>
+                    <input class="text-field" value="{{ username }}" readonly>
                 </div>
                 <div class="profile-info-container">
-                    <span class="field-title"><strong>Username:</strong>
+                    <span class="field-title"><strong>Spotify Username:</strong>
                         <span id="displayname"></span>
                     </span>
-                    <input class="text-field" readonly>
+                    <input class="text-field" value="{{ spotify_username }}" readonly>
                 </div>
                 <div class="profile-info-container">
                     <span class="field-title"><strong>Favourite Song:</strong></span>
-                    <input class="text-field" id="favourite-song" readonly>
+                    <input class="text-field" id="favourite-song" value="{{ top_song }}" readonly>
                 </div>
                 <button class="edit-button button">Edit</button>
                 <section id="top_songs">
                     <div class="profile-info-container">
-                    <span class="field-title"><strong>Songs Right Now:</strong></span>
+                    <span class="field-title"><strong>Top Songs Right Now:</strong></span>
                     </div>
                     <span id="track-list"></span>
                 </section>
