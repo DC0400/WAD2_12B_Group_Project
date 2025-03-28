@@ -17,6 +17,7 @@ import rankedifyapp
 from .forms import ProfileForm, UserProfileForm
 from .models import Profile, ListeningMinutesPerTime, Friends
 from django.shortcuts import redirect
+from django.urls import reverse
 
 import time
 import requests
@@ -254,9 +255,10 @@ def user_login(request):
     else:
         return render(request, 'rankedify/login.html')
 
+@login_required
 def user_logout(request):
     logout(request)
-    return redirect('rankedify:home')
+    return redirect(reverse("rankedifyapp:home"))
 
 def home(request):
     context_dict = {}
@@ -317,6 +319,8 @@ def get_spotify_data(request):
 def get_user_profile(request):
     username = request.user.username
     return username
+
+
 
 def get_user_id(request):
     id = request.user.id

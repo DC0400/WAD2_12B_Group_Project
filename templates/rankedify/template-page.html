@@ -26,7 +26,9 @@
             {% endif %}
 
             {% if not user.is_authenticated %}
-                <a href="/rankedify/login"><div class="nav-item">Log in</div></a>
+                <a href="/rankedify/login"><div class="nav-item">Login</div></a>
+            {% else %}
+                <a href="/rankedify/logout"><div class="nav-item">Logout</div></a>
             {% endif %}
             {% if user.is_authenticated %}
                 <a href="/rankedify/profile"><div class="nav-item">Profile</div></a>
