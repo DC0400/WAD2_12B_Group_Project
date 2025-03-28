@@ -34,11 +34,13 @@
                 {% endfor %}      
             </ul>
 
-            <div class="leaderboard-user-entry">
-                <span class="leaderboard-position text-center"> <span class="text-center">You</span> <br> #543</span>
-                <span class="leaderboard-username"> {{ current_user_profile.username }} </span> 
-                <span class="leaderboard-listening-time"> {{ current_user_profile.listening_minutes }} </span>
-            </div>
+            {% if current_user_profile is not None %}
+                <div class="leaderboard-user-entry">
+                    <span class="leaderboard-position text-center"> <span class="text-center">You</span> <br> #543</span>
+                    <span class="leaderboard-username"> {{ current_user_profile.username }} </span> 
+                    <span class="leaderboard-listening-time"> {{ current_user_profile.listening_minutes }} </span>
+                </div>
+            {% endif %}
         </div>
 
         
