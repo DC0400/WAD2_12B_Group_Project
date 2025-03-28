@@ -5,14 +5,14 @@
 {% block extra-js %}
 
 <script src={% static 'js/profile_scripts.js' %}></script>
-    
+
 <script>
     let username_var = "{{ username }}";
     let is_friend = "{{ is_friend }}"
 </script>
-    
+
 <script src="{% static 'js/add_friend.js' %}"></script>
-    
+
 {%endblock%}
 
 {% block title %}
