@@ -3,7 +3,7 @@ async function toggleFriendButtonStatus(friendButton) {
 
         if (button_text == "Add Friend") {
             console.log(window.location.origin);
-            const result = await fetch(window.location.origin + "/rankedify/add_friend/", {
+            const result = await fetch(window.location.origin + "/rankedify/new_friend/", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
