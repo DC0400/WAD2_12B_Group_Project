@@ -26,4 +26,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('callback/', views.profile, name='callback'),
     path('new_friend/', views.add_friend, name='add_friend'),
+    path('remove_friend/', views.remove_friend, name='remove_friend'),
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

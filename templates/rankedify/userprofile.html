@@ -8,6 +8,7 @@
     
 <script>
     let username_var = "{{ username }}";
+    let is_friend = "{{ is_friend }}"
 </script>
     
 <script src="{% static 'js/add_friend.js' %}"></script>
@@ -25,7 +26,11 @@
                 <img src="{{ MEDIA_URL }}{{ photo }}"
                      alt="User Avatar" />
                 <button id="friend-button" onclick="toggleFriendButtonStatus(this)" class="h-10 bg-zinc-950 text-white semi-bold p-2 w-32">
-                    Friend
+                    {% if is_friend %}
+                        Unfriend
+                    {% else %}
+                        Add Friend
+                    {% endif %}
                 </button>
             </div>
 

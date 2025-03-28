@@ -322,6 +322,45 @@ def add_friend(request):
                 new_friend = Friends.objects.create(user1=user_profile, user2=friend_profile)
                 new_friend.save()
 
+        context_dict['is_friend'] = is_friend(request, friend_profile)
+
+        return render(request, 'rankedify/userprofile.html', context=context_dict)
+
+def remove_friend(request):
+    if request.method == "POST":
+        context_dict = {}
+
+        friend_username = json.loads(request.body)
+        username = get_user_profile(request)
+
+        user_profile = Profile.objects.get(username=username)
+        friend_profile = Profile.objects.get(username=friend_username)
+
+        for profiles in Profile.objects.all():
+            if profiles.username == username:
+                user_profile = profiles.profile
+
+        for profiles in Profile.objects.all():
+            if profiles.username == friend_username:
+                friend_profile = profiles.profile
+
+                try:
+                    file_path = friend_profile.photo.path
+                    split = file_path.split('\\')
+                    path = split[-1]
+                except ValueError:
+                    path = "default.jpg"
+
+                context_dict['username'] = friend_profile.username
+                context_dict['spotify_username'] = friend_profile.spotify_username
+                context_dict['photo'] = path
+
+        if user_profile and friend_profile:
+            friend_object = Friends.objects.get(user1=user_profile, user2=friend_profile) | Friends.objects.get(user2=user_profile, user1=friend_profile)
+            friend_object.delete()
+
+        context_dict['is_friend'] = is_friend(request, friend_profile)
+
         return render(request, 'rankedify/userprofile.html', context=context_dict)
 
 def default_page(request):
