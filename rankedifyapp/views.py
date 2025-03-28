@@ -186,14 +186,17 @@ def is_friend(request, friend_profile):
     try:
         Friends.objects.get(user1=request.user, user2=friend_profile.user)
         is_friend_bool = True
+        print(is_friend_bool)
         return is_friend_bool
     except:
         try:
             Friends.objects.get(user1=friend_profile.user, user2=request.user)
             is_friend_bool = True
+            print(is_friend_bool)
             return is_friend_bool
         except:
             is_friend_bool = False
+            print(is_friend_bool)
             return is_friend_bool
 
 def edit_profile(request):
