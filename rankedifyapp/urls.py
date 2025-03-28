@@ -20,4 +20,5 @@ urlpatterns = [
     path('api/receive_photo/', views.receive_photo, name='receive_photo'),
     path('api/receive_spotify_username/', views.receive_spotify_username, name='receive_spotify_username'),
     path('users/<slug:username_slug>', views.view_profile, name='view_profile'),
+    path('add_friend/', views.add_friend, name='add_friend'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
