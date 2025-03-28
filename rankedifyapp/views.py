@@ -3,6 +3,7 @@ import os
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.sites import requests
+from django.db.models import Q
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.http import JsonResponse
@@ -12,7 +13,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from django.contrib import messages
 from rankedify import settings
-from django.core.validators import validate_email
+
 import rankedifyapp
 from .forms import ProfileForm, UserProfileForm
 from .models import Profile, ListeningMinutesPerTime, Friends
@@ -181,23 +182,18 @@ def view_profile(request, username_slug):
     return render(request, 'rankedify/userprofile.html', context=context_dict)
 
 def is_friend(request, friend_profile):
-    is_friend_bool = False
 
-    try:
-        Friends.objects.get(user1_id=request.user.id, user2_id=friend_profile.user.id)
-        is_friend_bool = True
-        print(is_friend_bool)
-        return is_friend_bool
-    except:
-        try:
-            Friends.objects.get(user1_id=friend_profile.user.id, user2_id=request.user.id)
-            is_friend_bool = True
-            print(is_friend_bool)
-            return is_friend_bool
-        except:
-            is_friend_bool = False
-            print(is_friend_bool)
-            return is_friend_bool
+    exists = Friends.objects.filter(
+        Q(user1_id=request.user.id, user2_id=friend_profile.id) |
+        Q(user1_id=friend_profile.id, user2_id=request.user.id)
+    ).exists()
+
+    if exists:
+        print("true")
+        return True
+    else:
+        print("false")
+        return False
 
 def edit_profile(request):
     profile = request.user.profile
@@ -343,6 +339,7 @@ def add_friend(request):
 
         return render(request, 'rankedify/userprofile.html', context=context_dict)
 
+@csrf_exempt
 def remove_friend(request):
     if request.method == "POST":
         context_dict = {}
@@ -373,7 +370,10 @@ def remove_friend(request):
                 context_dict['photo'] = path
 
         if user_profile and friend_profile:
-            friend_object = Friends.objects.get(user1=user_profile, user2=friend_profile) | Friends.objects.get(user2=user_profile, user1=friend_profile)
+            friend_object = Friends.objects.filter(
+                Q(user1_id=request.user.id, user2_id=friend_profile.id) |
+                Q(user1_id=friend_profile.id, user2_id=request.user.id)
+            ).get()
             friend_object.delete()
 
         context_dict['is_friend'] = is_friend(request, friend_profile)
