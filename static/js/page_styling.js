@@ -42,7 +42,7 @@ $(document).ready(function() {
     $(".edit-button").addClass("w-12")
     //Top songs
     $("#top_songs_title").addClass()
-    $("#top_songs").addClass("h-[400px] w-[400px] overflow-auto bg-zinc-950 text-green-50 rounded")
+    $("#top_songs").addClass("h-[400px] w-[400px] overflow-auto bg-zinc-950")
     $(".profile-info-container").addClass("w-full")
 
     //friends.html
