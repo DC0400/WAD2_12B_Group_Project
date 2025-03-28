@@ -6,7 +6,7 @@ class Profile(User):
     forename = models.CharField(max_length=100)
     surname = models.CharField(max_length=100)
     photo = models.ImageField(upload_to='user_photos/', blank=True)
-    spotify_username = models.CharField(max_length=150, unique=True, blank=True, null=True)
+    spotify_username = models.CharField(max_length=150, blank=True, null=True)
     rank = models.IntegerField(default=0)
     top_song = models.CharField(max_length=100, null=True, blank=True)
     listening_minutes = models.IntegerField(default=0)
@@ -24,7 +24,7 @@ class Profile(User):
         return self.username
 
 class ListeningMinutesPerTime(models.Model):
-    username_minutes = models.CharField(max_length=100)
+    username_minutes = models.ForeignKey(Profile, on_delete=models.CASCADE)
     listening_minutes = models.IntegerField(default=0)
     last_logged_in = models.IntegerField(default=0)
 

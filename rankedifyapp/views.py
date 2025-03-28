@@ -15,7 +15,7 @@ from rankedify import settings
 
 import rankedifyapp
 from .forms import ProfileForm, UserProfileForm
-from .models import Profile
+from .models import Profile, ListeningMinutesPerTime
 from django.shortcuts import redirect
 
 import time
@@ -48,7 +48,11 @@ def receive_minutes(request):
                 if profiles.username == username:
                     #print(profiles.username)
                     profiles.listening_minutes += data
+                    profiles.last_logged_in = (time.time()*1000)
                     profiles.save()
+
+                    new_listening_time = ListeningMinutesPerTime.objects.create(username_minutes=profiles.profile, listening_minutes=profiles.listening_minutes, last_logged_in=profiles.last_logged_in)
+                    new_listening_time.save()
 
             return JsonResponse({"message": "Data received successfully"}, status=200)
         except json.JSONDecodeError:
@@ -261,3 +265,7 @@ def get_spotify_data(request):
 def get_user_profile(request):
     username = request.user.username
     return username
+
+def get_user_id(request):
+    id = request.user.id
+    return id
