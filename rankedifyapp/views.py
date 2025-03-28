@@ -295,6 +295,9 @@ def add_friend(request):
         friend_username = json.loads(request.body)
         username = get_user_profile(request)
 
+        user_profile = Profile.objects.get(username=username)
+        friend_profile = Profile.objects.get(username=friend_username)
+
         for profiles in Profile.objects.all():
             if profiles.username == username:
                 user_profile = profiles.profile
