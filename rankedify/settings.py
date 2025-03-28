@@ -30,7 +30,7 @@ MEDIA_URL = '/media/'
 SECRET_KEY = '*oo4l1svgp!(3y8^@3od2r_&3=11!vvsg(+1nsa#7+9m=zp&x%'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['rankedify.pythonanywhere.com']
 
