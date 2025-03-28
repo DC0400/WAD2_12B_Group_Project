@@ -23,7 +23,7 @@
                 {% if friends|length > 0 %}
                     {% for friend in friends %}
                         <li class="friends-entry">
-                            <span class="user-entry">{{ friend }}</span>
+                            <span class="user-entry"><a href="{% url 'rankedifyapp:view_profile' friend.slug %}">{{ friend.username }}</a></span>
                         </li>
                     {% endfor %}
                 {% else %}
