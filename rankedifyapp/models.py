@@ -50,18 +50,6 @@ class Song(models.Model):
     def __str__(self):
         return self.title
 
-
-class FriendRequest(models.Model):
-    from_user = models.ForeignKey(Profile, related_name='sent_friend_requests', on_delete=models.CASCADE)
-    to_user = models.ForeignKey(Profile, related_name='received_friend_requests', on_delete=models.CASCADE)
-    created_at = models.DateTimeField(auto_now_add=True)
-    accepted = models.BooleanField(default=False)
-
-    def __str__(self):
-        status = "Accepted" if self.accepted else "Pending"
-        return f"{self.from_user.username} -> {self.to_user.username} ({status})"
-
-
 class Friends(models.Model):
     user1 = models.ForeignKey(Profile, related_name='friends1', on_delete=models.CASCADE)
     user2 = models.ForeignKey(Profile, related_name='friends2', on_delete=models.CASCADE)
