@@ -157,11 +157,11 @@ def view_profile(request, username_slug):
         username = Profile.objects.get(slug=username_slug)
         profile = Profile.objects.get(username=username)
 
-        if profile.photo.path:
+        try:
             file_path = profile.photo.path
             split = file_path.split('\\')
             path = split[-1]
-        else:
+        except ValueError:
             path = "default.jpg"
 
         context_dict['username'] = username
@@ -175,7 +175,19 @@ def view_profile(request, username_slug):
         context_dict['photo'] = None
         context_dict['favourite_song'] = None
 
+    print(is_friend(request, profile))
+    context_dict['is_friend'] = is_friend(request, profile)
+
     return render(request, 'rankedify/userprofile.html', context=context_dict)
+
+def is_friend(request, friend_profile):
+    user_profile = request.user.profile
+
+    for friend_objects in Friends.objects.all():
+        if friend_objects.user1_id == user_profile.id and friend_objects.user2_id == friend_profile.id | friend_objects.user2_id == user_profile.id and friend_objects.user1_id == friend_profile.id:
+            return True
+
+    return False
 
 def edit_profile(request):
     profile = request.user.profile
