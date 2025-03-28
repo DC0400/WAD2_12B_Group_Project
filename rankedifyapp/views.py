@@ -306,9 +306,12 @@ def add_friend(request):
             if profiles.username == friend_username:
                 friend_profile = profiles.profile
 
-                file_path = friend_profile.photo.path
-                split = file_path.split('\\')
-                path = split[-1]
+                try:
+                    file_path = friend_profile.photo.path
+                    split = file_path.split('\\')
+                    path = split[-1]
+                except ValueError:
+                    path = "default.jpg"
 
                 context_dict['username'] = friend_profile.username
                 context_dict['spotify_username'] = friend_profile.spotify_username
