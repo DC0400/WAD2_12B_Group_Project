@@ -18,3 +18,8 @@ For running this project you should have a version of Python 3.11 and install th
 
 ## Running Requirements
 In order for the Spotify API to callback successfully, this application must be hosted at "rankedify.pythonanywhere.com", hosting locally will not allow a callback to be successful. All other features of the app can be ran locally, however no Spotify data will be available.
+
+## Test Spotify Login
+There is a test Google account that is linked to a Spotify account for testing:
+Email address - WAD2SpotifyTest@gmail.com
+Password - spotifytestWAD2!
